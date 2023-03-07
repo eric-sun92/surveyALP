@@ -30,8 +30,8 @@ const RegisterScreen = ({ location, history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect);
-      // history.push("/home");
+      // history.push(redirect);
+      history.push("/home");
     }
   }, [history, userInfo, redirect]);
 
@@ -44,7 +44,7 @@ const RegisterScreen = ({ location, history }) => {
       console.log(userInfo);
       dispatch(login(email, password));
       // if (userInfo != null) {
-      history.push("/home");
+      //   history.push("/home");
       // }
     }
   };

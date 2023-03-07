@@ -159,11 +159,16 @@ const PlaceOrderScreen = ({ history }) => {
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : ( */}
-                <LinkContainer to="/">
-                  <Nav.Link>
-                    <i className="fas fa-user" onClick={logoutHandler}></i> Home
-                  </Nav.Link>
-                </LinkContainer>
+                <div
+                  style={{
+                    color: "white",
+                    cursor: "pointer",
+                    marginTop: "0.7rem",
+                  }}
+                  onClick={logoutHandler}
+                >
+                  <i className="fas fa-user ml-1"></i> Home
+                </div>
                 {/* )} */}
                 {userInfo && userInfo.isAdmin && (
                   <NavDropdown title="Admin" id="adminmenu">
