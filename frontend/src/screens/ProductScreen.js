@@ -22,6 +22,7 @@ import {
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
 import Header from "../components/Header";
 // import Popup from "../components/Popup";
+import Popup from "reactjs-popup";
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
@@ -58,12 +59,12 @@ const ProductScreen = ({ history, match }) => {
     }
   }, [dispatch, match, successProductReview, product._id]);
 
-  const addToCartHandler = () => {
-    if (product.dripPrice) {
-      console.log("eric test");
-    }
-    history.push(`/cart/${match.params.id}?qty=${qty}`);
-  };
+  // const addToCartHandler = () => {
+  //   if (product.dripPrice) {
+  //     console.log("eric test");
+  //   }
+  //   // history.push(`/cart/${match.params.id}?qty=${qty}`);
+  // };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -168,14 +169,54 @@ const ProductScreen = ({ history, match }) => {
                     )}
 
                     <ListGroup.Item>
-                      <Button
-                        onClick={addToCartHandler}
-                        className="btn-block cart-btn profile"
-                        type="button"
-                        disabled={product.countInStock === 0 || cartItem}
+                      <Popup
+                        trigger={
+                          <Button
+                            // onClick={addToCartHandler}
+                            className="btn-block cart-btn profile"
+                            type="button"
+                            disabled={product.countInStock === 0 || cartItem}
+                          >
+                            Add To Cart
+                          </Button>
+                        }
+                        modal
+                        nested
                       >
-                        Add To Cart
-                      </Button>
+                        {(close) => (
+                          <div className="modal">
+                            <button className="close" onClick={close}>
+                              &times;
+                            </button>
+                            <div className="header"> Low Price Alert </div>
+                            <div className="content">
+                              {" "}
+                              A similar gift card is available at a cheaper
+                              final price.
+                            </div>
+                            <div className="actions">
+                              <button
+                                className="button"
+                                onClick={() => {
+                                  console.log("modal closed ");
+                                  close();
+                                }}
+                              >
+                                Return to Marketplace
+                              </button>
+                              <button
+                                className="button"
+                                onClick={() => {
+                                  console.log("modal closed ");
+                                  close();
+                                }}
+                              >
+                                Dismiss and Add to Cart
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </Popup>
                     </ListGroup.Item>
                   </ListGroup>
                 </Card>
