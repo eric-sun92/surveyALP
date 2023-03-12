@@ -49,7 +49,7 @@ const PlaceOrderScreen = ({ history }) => {
   };
 
   cart.itemsPrice = addDecimals(
-    cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+    cart.cartItems.reduce((acc, item) => acc + item.price * 1, 0)
   );
 
   // shipping

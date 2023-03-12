@@ -21,14 +21,15 @@ import {
 } from "../actions/productActions";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
 import Header from "../components/Header";
+import { addToCart } from "../actions/cartActions";
 // import Popup from "../components/Popup";
-import Popup from "reactjs-popup";
+// import Popup from "reactjs-popup";
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-  const [popUpState, setPopUpState] = useState(true);
+  const [modal, setModal] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -59,12 +60,10 @@ const ProductScreen = ({ history, match }) => {
     }
   }, [dispatch, match, successProductReview, product._id]);
 
-  // const addToCartHandler = () => {
-  //   if (product.dripPrice) {
-  //     console.log("eric test");
-  //   }
-  //   // history.push(`/cart/${match.params.id}?qty=${qty}`);
-  // };
+  const addToCartHandler = () => {
+    console.log("test");
+    history.push(`/cart/${match.params.id}`);
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -76,27 +75,52 @@ const ProductScreen = ({ history, match }) => {
     );
   };
 
-  // useEffect(() => {
-  //   const section = document.querySelector("section");
-  //   const hireBtn = document.querySelector(".cart-btn");
-
-  //   const cancelBtn = document.querySelectorAll("#close");
-
-  //   hireBtn.addEventListener("click", () => {
-  //     section.classList.add("active");
-  //   });
-  //   cancelBtn.forEach((cBtn) => {
-  //     cBtn.addEventListener("click", () => {
-  //       section.classList.remove("active");
-  //     });
-  //   });
-  //   console.log(cancelBtn);
-  // }, [popUpState]);
+  const toggleModal = () => {
+    setModal(!modal);
+  };
 
   return (
     <>
       <Header />
-      <Container>
+      {modal && (
+        <div className="overlay">
+          <div className="modal-content">
+            <img
+              style={{
+                margin: "1rem",
+                height: "30px",
+                width: "30px",
+              }}
+              src="/images/price-tag.png"
+            ></img>
+            <h2>Low Price Alert</h2>
+            <p style={{ marginBottom: "4rem" }}>
+              A similar gift is available at a cheaper final price.
+            </p>
+
+            <button onClick={toggleModal} class="close"></button>
+            <Button
+              onClick={() => {
+                history.push("/home");
+              }}
+            >
+              RETURN TO MARKETPLACE
+            </Button>
+            <Button
+              style={{ marginTop: "1rem", border: "none" }}
+              variant="outline-secondary"
+              onClick={() => {
+                toggleModal();
+                history.push(`/cart/${match.params.id}`);
+              }}
+            >
+              Dismiss and Add to Cart
+            </Button>
+          </div>
+        </div>
+      )}
+
+      <Container style={{ backdropFilter: "blur(10px)" }}>
         <Link className="btn btn-light my-3" to="/home">
           Go Back
         </Link>
@@ -169,54 +193,16 @@ const ProductScreen = ({ history, match }) => {
                     )}
 
                     <ListGroup.Item>
-                      <Popup
-                        trigger={
-                          <Button
-                            // onClick={addToCartHandler}
-                            className="btn-block cart-btn profile"
-                            type="button"
-                            disabled={product.countInStock === 0 || cartItem}
-                          >
-                            Add To Cart
-                          </Button>
+                      <Button
+                        className="btn-block cart-btn profile"
+                        type="button"
+                        disabled={product.countInStock === 0 || cartItem}
+                        onClick={
+                          product.dripPrice ? toggleModal : addToCartHandler
                         }
-                        modal
-                        nested
                       >
-                        {(close) => (
-                          <div className="modal">
-                            <button className="close" onClick={close}>
-                              &times;
-                            </button>
-                            <div className="header"> Low Price Alert </div>
-                            <div className="content">
-                              {" "}
-                              A similar gift card is available at a cheaper
-                              final price.
-                            </div>
-                            <div className="actions">
-                              <button
-                                className="button"
-                                onClick={() => {
-                                  console.log("modal closed ");
-                                  close();
-                                }}
-                              >
-                                Return to Marketplace
-                              </button>
-                              <button
-                                className="button"
-                                onClick={() => {
-                                  console.log("modal closed ");
-                                  close();
-                                }}
-                              >
-                                Dismiss and Add to Cart
-                              </button>
-                            </div>
-                          </div>
-                        )}
-                      </Popup>
+                        Add To Cart
+                      </Button>
                     </ListGroup.Item>
                   </ListGroup>
                 </Card>
