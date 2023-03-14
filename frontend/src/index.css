@@ -19,19 +19,6 @@ main {
   .rating span {
     margin: 0.1rem;
   }
-  
-.test {
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  padding: 5rem 5rem;
-  background-color: lightblue;
-  z-index: 2;
-}
-
-.invisible {
-  display: none
-}
 
 body.active-modal {
   overflow-y: hidden;
@@ -43,25 +30,7 @@ body.active-modal {
   margin: 100px auto 0;
   font-size: 18px;
 }
-/* 
-.overlay {
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  position: fixed;
-  z-index: 2;
-} */
-.test {
-  /* filter: blur(8px); */
-}
-.overlay {
-  /* background: rgba(49,49,49,0.8);
-  z-index: 2; */
-    /* filter: blur(8px); */
-}
+
 .modal-content {
   position: absolute;
   top: 50%;

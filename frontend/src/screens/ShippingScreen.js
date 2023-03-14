@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../components/FormContainer";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { saveShippingAddress } from "../actions/cartActions";
 import Header from "../components/Header";
+import ReCAPTCHA from "react-google-recaptcha";
+import dotenv from "dotenv";
+import axios from "axios";
+dotenv.config();
 
 const ShippingScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
@@ -18,8 +22,21 @@ const ShippingScreen = ({ history }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userLogin);
 
-  const submitHandler = (e) => {
+  const captchaRef = useRef(null);
+
+  const submitHandler = async (e) => {
     e.preventDefault();
+
+    const token = captchaRef.current.getValue();
+    captchaRef.current.reset();
+
+    await axios
+      .post("/api/verify", { token })
+      .then((res) => console.log(res))
+      .catch((error) => {
+        console.log(error);
+      });
+
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
     if (address === user.userInfo.name) {
       history.push("/payment");
@@ -84,8 +101,11 @@ const ShippingScreen = ({ history }) => {
               onChange={(e) => setCountry(e.target.value)}
             ></Form.Control>
           </Form.Group> */}
-
-          <Button type="submit" variant="primary">
+          <ReCAPTCHA
+            sitekey="6LdGRvYkAAAAAHAX3eTSozBL-Hmfc25wLqtL5qQs"
+            ref={captchaRef}
+          />
+          <Button style={{ marginTop: "1rem" }} type="submit" variant="primary">
             Continue
           </Button>
         </Form>
