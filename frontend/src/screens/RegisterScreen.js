@@ -41,12 +41,15 @@ const RegisterScreen = ({ location, history }) => {
       setMessage("Passwords do not match");
     } else {
       dispatch(register(name, email, password));
-      console.log(userInfo);
       dispatch(login(email, password));
       // if (userInfo != null) {
       //   history.push("/home");
       // }
     }
+  };
+  window.onload = () => {
+    const myInput = document.getElementById("myInput");
+    myInput.onpaste = (e) => e.preventDefault();
   };
 
   return (
@@ -89,6 +92,7 @@ const RegisterScreen = ({ location, history }) => {
                 setPassword(e.target.value);
                 setConfirmPassword(e.target.value);
               }}
+              id="myInput"
               autoComplete="off"
             ></Form.Control>
           </Form.Group>

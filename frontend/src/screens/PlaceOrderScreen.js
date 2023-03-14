@@ -214,13 +214,6 @@ const PlaceOrderScreen = ({ history }) => {
               </ListGroup.Item>
 
               <ListGroup.Item>
-                <h2>Payment Method</h2>
-                <strong>Method: </strong>
-                {cart.paymentMethod}
-                {/* Giftcard */}
-              </ListGroup.Item>
-
-              <ListGroup.Item>
                 <h2>Order Items</h2>
                 {cart.cartItems.length === 0 ? (
                   <Message>Your cart is empty</Message>
