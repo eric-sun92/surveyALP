@@ -5,12 +5,12 @@ import FormContainer from "../components/FormContainer";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { saveShippingAddress } from "../actions/cartActions";
 import Header from "../components/Header";
-import ReCAPTCHA from "react-google-recaptcha";
-import dotenv from "dotenv";
-import axios from "axios";
-dotenv.config();
+import Reaptcha from "reaptcha";
+import { savePaymentMethod } from "../actions/cartActions";
 
 const ShippingScreen = ({ history }) => {
+  window.history.forward(1);
+
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
@@ -22,27 +22,33 @@ const ShippingScreen = ({ history }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userLogin);
 
+  const [captchaToken, setCaptchaToken] = useState(null);
   const captchaRef = useRef(null);
+
+  const verify = () => {
+    captchaRef.current.getResponse().then((res) => {
+      setCaptchaToken(res);
+    });
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    const token = captchaRef.current.getValue();
-    captchaRef.current.reset();
+    // const token = captchaRef.current.getValue();
+    // captchaRef.current.reset();
 
-    await axios
-      .post("/api/verify", { token })
-      .then((res) => console.log(res))
-      .catch((error) => {
-        console.log(error);
-      });
-
+    // await axios
+    //   .post("/api/verify", { token })
+    //   .then((res) => console.log(res))
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
-    if (address === user.userInfo.name) {
-      history.push("/payment");
+    dispatch(savePaymentMethod("Default"));
+
+    if (address === user.userInfo.name && captchaToken !== null) {
+      history.push("/placeorder");
     }
-    console.log("123123123");
-    setAddress(123123);
   };
 
   return (
@@ -101,9 +107,14 @@ const ShippingScreen = ({ history }) => {
               onChange={(e) => setCountry(e.target.value)}
             ></Form.Control>
           </Form.Group> */}
-          <ReCAPTCHA
+          {/* <ReCAPTCHA
             sitekey="6LdGRvYkAAAAAHAX3eTSozBL-Hmfc25wLqtL5qQs"
             ref={captchaRef}
+          /> */}
+          <Reaptcha
+            sitekey="6LdGRvYkAAAAAHAX3eTSozBL-Hmfc25wLqtL5qQs"
+            ref={captchaRef}
+            onVerify={verify}
           />
           <Button style={{ marginTop: "1rem" }} type="submit" variant="primary">
             Continue

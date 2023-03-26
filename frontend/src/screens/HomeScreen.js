@@ -12,13 +12,15 @@ import Header from "../components/Header";
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
-
   const pageNumber = match.params.pageNumber || 1;
 
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
+
+  // let currProducts = products.filter((product) => product.dripPrice == false);
+  // console.log(currProducts);
 
   useEffect(() => {
     dispatch(listProducts(keyword, pageNumber));
@@ -36,7 +38,7 @@ const HomeScreen = ({ match }) => {
           Go Back
         </Link>
       )} */}
-        <h1 className="mt-4">Latest Products</h1>
+        <h1 className="mt-4">Giftcard Market Place</h1>
         {loading ? (
           <Loader />
         ) : error ? (

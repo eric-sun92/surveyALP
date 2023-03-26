@@ -21,7 +21,6 @@ import { ORDER_CREATE_RESET } from "../constants/orderConstants";
 import { USER_DETAILS_RESET } from "../constants/userConstants";
 
 import { logout } from "../actions/userActions";
-import { withRouter } from "react-router-dom";
 
 const PlaceOrderScreen = ({ history }) => {
   window.history.forward(1);

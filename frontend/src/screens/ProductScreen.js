@@ -61,7 +61,6 @@ const ProductScreen = ({ history, match }) => {
   }, [dispatch, match, successProductReview, product._id]);
 
   const addToCartHandler = () => {
-    console.log("test");
     history.push(`/cart/${match.params.id}`);
   };
 
@@ -91,6 +90,7 @@ const ProductScreen = ({ history, match }) => {
                 height: "30px",
                 width: "30px",
               }}
+              alt="pic"
               src="/images/price-tag.png"
             ></img>
             <h2>Low Price Alert</h2>
@@ -184,6 +184,7 @@ const ProductScreen = ({ history, match }) => {
                               as="select"
                               value={qty}
                               onChange={(e) => setQty(e.target.value)}
+                              id="1"
                             >
                               <option value="1">1</option>
                             </Form.Control>
