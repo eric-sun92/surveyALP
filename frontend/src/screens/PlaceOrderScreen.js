@@ -37,6 +37,9 @@ const PlaceOrderScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.userLogin);
 
+  const productDetails = useSelector((state) => state.productDetails);
+  const { product } = productDetails;
+
   if (!cart.shippingAddress.address) {
     history.push("/shipping");
   } else if (!cart.paymentMethod) {
@@ -48,7 +51,7 @@ const PlaceOrderScreen = ({ history }) => {
   };
 
   cart.itemsPrice = addDecimals(
-    cart.cartItems.reduce((acc, item) => acc + item.price * 1, 0)
+    cart.cartItems.reduce((acc, item) => acc + (product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)) * 1, 0)
   );
 
   // shipping
@@ -58,7 +61,7 @@ const PlaceOrderScreen = ({ history }) => {
   // cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)));
 
   cart.totalPrice = cart.cartItems[0].dripPrice
-    ? Number(cart.itemsPrice) - Number(Math.round(cart.itemsPrice / 20))
+    ? Number(cart.itemsPrice) + 1.7
     : Number(cart.itemsPrice)
         // Number(cart.shippingPrice) +
         // Number(cart.taxPrice)
@@ -231,8 +234,8 @@ const PlaceOrderScreen = ({ history }) => {
                           </Col>
                           <Col>{item.name}</Col>
                           <Col md={4}>
-                            {item.qty} x ${item.price} = $
-                            {item.qty * item.price}
+                            {item.qty} x ${product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)} = $
+                            {product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)}
                           </Col>
                         </Row>
                       </ListGroup.Item>
@@ -258,9 +261,9 @@ const PlaceOrderScreen = ({ history }) => {
                   <Row>
                     <Col>Service Fee</Col>
                     {cart.cartItems[0].dripPrice ? (
-                      <Col>${Number(Math.round(cart.itemsPrice / 20))}</Col>
+                      <Col>${Number(1.7).toFixed(2)}</Col>
                     ) : (
-                      <Col>$0</Col>
+                      <Col>$0.00</Col>
                     )}
                     {/* // <Col>${cart.shippingPrice}</Col> */}
                   </Row>
@@ -280,7 +283,7 @@ const PlaceOrderScreen = ({ history }) => {
                 <ListGroup.Item>
                   <Row>
                     <Col>Estimated Total</Col>
-                    <Col>${cart.totalPrice}</Col>
+                    <Col>${cart.totalPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>

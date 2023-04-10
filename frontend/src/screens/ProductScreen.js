@@ -78,6 +78,15 @@ const ProductScreen = ({ history, match }) => {
     setModal(!modal);
   };
 
+  const services = [
+    "Acme",
+    "Poseidon",
+    "Betamax",
+    "iBuy",
+    "Gammamex",
+    "OmegaBlue",
+  ];
+
   return (
     <>
       <Header />
@@ -95,9 +104,11 @@ const ProductScreen = ({ history, match }) => {
             ></img>
             <h2>Low Price Alert</h2>
             <p style={{ marginBottom: "4rem" }}>
-              A similar gift is available at a cheaper final price.
+              This item has an additional service fee.
+              <br></br>
+              <br></br>
+              A similar gift card is available at a cheaper final price.
             </p>
-
             <button onClick={toggleModal} class="close"></button>
             <Button
               onClick={() => {
@@ -139,6 +150,7 @@ const ProductScreen = ({ history, match }) => {
                 <ListGroup variant="flush">
                   <ListGroup.Item>
                     <h3>{product.name}</h3>
+                    Sold by {services[Math.floor(Math.random() * services.length)]}
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <Rating
@@ -146,7 +158,9 @@ const ProductScreen = ({ history, match }) => {
                       text={`${product.numReviews} reviews`}
                     />
                   </ListGroup.Item>
-                  <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
+                  <ListGroup.Item>
+                    Price: ${product.dripPrice ? (parseFloat(product.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(product.price).toFixed(2)}
+                  </ListGroup.Item>
                   <ListGroup.Item>
                     Description: {product.description}
                   </ListGroup.Item>
@@ -159,7 +173,7 @@ const ProductScreen = ({ history, match }) => {
                       <Row>
                         <Col>Price:</Col>
                         <Col>
-                          <strong>${product.price}</strong>
+                          <strong>${product.dripPrice ? (parseFloat(product.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(product.price).toFixed(2)}</strong>
                         </Col>
                       </Row>
                     </ListGroup.Item>

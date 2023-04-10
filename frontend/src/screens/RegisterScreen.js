@@ -9,7 +9,7 @@ import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
 import { register } from "../actions/userActions";
 // import Header from "../components/Header";
-import { login } from "../actions/userActions";
+import { login, logout } from "../actions/userActions";
 
 const RegisterScreen = ({ location, history }) => {
   const [name, setName] = useState("");
@@ -42,6 +42,8 @@ const RegisterScreen = ({ location, history }) => {
     } else {
       dispatch(register(name, email, password));
       dispatch(login(email, password));
+    
+
       // if (userInfo != null) {
       //   history.push("/home");
       // }

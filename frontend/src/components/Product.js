@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import Rating from "./Rating";
+import { useSelector } from "react-redux";
 
 const services = [
   "Acme",
@@ -13,6 +14,10 @@ const services = [
 ];
 
 const Product = ({ product }) => {
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   return (
     <Card className="my-3 p-3 rounded">
       <Link to={`/product/${product._id}`}>
@@ -37,7 +42,7 @@ const Product = ({ product }) => {
           />
         </Card.Text>
 
-        <Card.Text as="h3">${product.price.toFixed(2)}</Card.Text>
+        <Card.Text as="h3">${ product.dripPrice ? (parseFloat(product.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(product.price).toFixed(2)}</Card.Text>
       </Card.Body>
     </Card>
   );

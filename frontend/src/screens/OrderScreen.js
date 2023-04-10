@@ -54,6 +54,9 @@ const OrderScreen = ({ match, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const productDetails = useSelector((state) => state.productDetails);
+  const { product } = productDetails;
+
   const logoutHandler = () => {
     dispatch(logout());
   };
@@ -229,8 +232,8 @@ const OrderScreen = ({ match, history }) => {
                             </Link>
                           </Col>
                           <Col md={4}>
-                            {item.qty} x ${item.price} = $
-                            {item.qty * item.price}
+                            {item.qty} x ${product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)} = $
+                            {(item.qty * (product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)))}
                           </Col>
                         </Row>
                       </ListGroup.Item>
@@ -267,7 +270,7 @@ const OrderScreen = ({ match, history }) => {
                 <ListGroup.Item>
                   <Row>
                     <Col>Total</Col>
-                    <Col>${order.totalPrice}</Col>
+                    <Col>${order.totalPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 {!order.isPaid && (

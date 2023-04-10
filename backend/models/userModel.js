@@ -1,6 +1,10 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -21,6 +25,10 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    rand: {
+      type: Number,
+      default: Math.floor(Math.random() * (Math.floor(35)))
+    }
   },
   {
     timestamps: true,

@@ -25,6 +25,12 @@ const CartScreen = ({ match, location, history }) => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
+  const productDetails = useSelector((state) => state.productDetails);
+  const { product } = productDetails;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
@@ -61,7 +67,7 @@ const CartScreen = ({ match, location, history }) => {
                       <Col md={3}>
                         <Link to={`/product/${item.product}`}>{item.name}</Link>
                       </Col>
-                      <Col md={2}>${item.price}</Col>
+                      <Col md={2}>${product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)}</Col>
                       <Col md={2}>
                         <Form.Control
                           as="select"
@@ -100,7 +106,7 @@ const CartScreen = ({ match, location, history }) => {
                   </h2>
                   $
                   {cartItems
-                    .reduce((acc, item) => acc + item.qty * item.price, 0)
+                    .reduce((acc, item) => acc + item.qty * (product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)), 0)
                     .toFixed(2)}
                 </ListGroup.Item>
                 <ListGroup.Item>
