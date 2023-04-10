@@ -233,7 +233,7 @@ const OrderScreen = ({ match, history }) => {
                           </Col>
                           <Col md={4}>
                             {item.qty} x ${product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)} = $
-                            {(item.qty * (product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)))}
+                            {product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)}
                           </Col>
                         </Row>
                       </ListGroup.Item>

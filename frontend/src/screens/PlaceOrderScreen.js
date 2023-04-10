@@ -62,10 +62,10 @@ const PlaceOrderScreen = ({ history }) => {
 
   cart.totalPrice = cart.cartItems[0].dripPrice
     ? Number(cart.itemsPrice) + 1.7
-    : Number(cart.itemsPrice)
+    : Number(parseFloat(cart.itemsPrice).toFixed(2))
         // Number(cart.shippingPrice) +
         // Number(cart.taxPrice)
-        .toFixed(2);
+        ;
 
   const orderCreate = useSelector((state) => state.orderCreate);
   const { order, success, error } = orderCreate;

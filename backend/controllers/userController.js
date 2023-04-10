@@ -51,6 +51,7 @@ const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
+      rand: user.rand
     });
   } else {
     res.status(400);
@@ -70,6 +71,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      rand: user.rand
     });
   } else {
     res.status(404);
