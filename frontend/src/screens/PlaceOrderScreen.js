@@ -7,7 +7,6 @@ import {
   Image,
   Card,
   Container,
-  // Form,
   Navbar,
   Nav,
   NavDropdown,
@@ -31,7 +30,7 @@ const PlaceOrderScreen = ({ history }) => {
   const { userInfo } = userLogin;
 
   const logoutHandler = () => {
-    dispatch(logout());
+    dispatch(logout(userInfo.name));
   };
 
   const cart = useSelector((state) => state.cart);

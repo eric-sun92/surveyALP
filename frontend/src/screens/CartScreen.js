@@ -42,7 +42,7 @@ const CartScreen = ({ match, location, history }) => {
   };
 
   const checkoutHandler = () => {
-    history.push("/login?redirect=shipping");
+    history.push("/shipping");
   };
 
   const rand1 = userInfo.rand1

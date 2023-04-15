@@ -5,7 +5,6 @@ import Product from "../components/Product";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import Paginate from "../components/Paginate";
-// import ProductCarousel from "../components/ProductCarousel";
 import Meta from "../components/Meta";
 import { listProducts } from "../actions/productActions";
 import Header from "../components/Header";
@@ -28,13 +27,6 @@ const HomeScreen = ({ match }) => {
       <Header />
       <Container>
         <Meta />
-        {/* {!keyword ? (
-        <ProductCarousel />
-      ) : (
-        <Link to="/" className="btn btn-light">
-          Go Back
-        </Link>
-      )} */}
         <h1 className="mt-4">Giftcard Market Place</h1>
         {loading ? (
           <Loader />

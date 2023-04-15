@@ -66,7 +66,7 @@ const OrderScreen = ({ match, history }) => {
   const selectedRand = randArray[product.category]
 
   const logoutHandler = () => {
-    dispatch(logout());
+    dispatch(logout(userInfo.name));
   };
 
   if (!loading) {

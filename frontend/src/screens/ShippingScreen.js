@@ -34,15 +34,6 @@ const ShippingScreen = ({ history }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    // const token = captchaRef.current.getValue();
-    // captchaRef.current.reset();
-
-    // await axios
-    //   .post("/api/verify", { token })
-    //   .then((res) => console.log(res))
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
     dispatch(savePaymentMethod("Default"));
 

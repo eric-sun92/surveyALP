@@ -62,7 +62,7 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-export const logout = () => (dispatch) => {
+export const logout = (name) => (dispatch) => {
   localStorage.removeItem("userInfo");
   localStorage.removeItem("cartItems");
   localStorage.removeItem("shippingAddress");
@@ -71,7 +71,7 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_DETAILS_RESET });
   dispatch({ type: ORDER_LIST_MY_RESET });
   dispatch({ type: USER_LIST_RESET });
-  document.location.href = "/";
+  document.location.href = `/login/${name}`;
 };
 
 export const register = (name, email, password) => async (dispatch) => {

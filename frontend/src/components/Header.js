@@ -13,8 +13,7 @@ const Header = () => {
   const { userInfo } = userLogin;
 
   const logoutHandler = () => {
-    console.log("logout");
-    dispatch(logout());
+    dispatch(logout(userInfo.name));
   };
 
   return (
@@ -33,22 +32,6 @@ const Header = () => {
                   <i className="fas fa-shopping-cart"></i> Cart
                 </Nav.Link>
               </LinkContainer>
-              {/* {userInfo ? (
-                <NavDropdown title={userInfo.name} id="username">
-                  <LinkContainer to="/">
-                    <NavDropdown.Item>Home</NavDropdown.Item>
-                  </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
-              ) : ( */}
-              {/* <LinkContainer to="/">
-                <Nav.Link onClick={() => logoutHandler}>
-                  <i className="fas fa-user"></i>
-                  Home
-                </Nav.Link>
-              </LinkContainer> */}
               <div
                 style={{
                   color: "white",
@@ -59,7 +42,6 @@ const Header = () => {
               >
                 <i className="fas fa-user ml-1"></i> Home
               </div>
-              {/* )} */}
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title="Admin" id="adminmenu">
                   <LinkContainer to="/admin/userlist">
