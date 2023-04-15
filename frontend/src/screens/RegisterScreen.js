@@ -12,6 +12,8 @@ import { register } from "../actions/userActions";
 import { login, logout } from "../actions/userActions";
 
 const RegisterScreen = ({ location, history }) => {
+
+  
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

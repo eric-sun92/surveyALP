@@ -57,6 +57,14 @@ const OrderScreen = ({ match, history }) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { product } = productDetails;
 
+  const rand1 = userInfo.rand1
+  const rand2 = userInfo.rand2
+  const rand3 = userInfo.rand3
+
+  const randArray = [rand1, rand2, rand3]
+
+  const selectedRand = randArray[product.category]
+
   const logoutHandler = () => {
     dispatch(logout());
   };
@@ -130,27 +138,8 @@ const OrderScreen = ({ match, history }) => {
         <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
           <Container>
             <div style={{ color: "white", fontSize: "1.2rem" }}>Survey</div>
-            {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
             <Navbar.Collapse id="basic-navbar-nav">
-              {/* <Route
-                render={({ history }) => <SearchBox history={history} />}
-              /> */}
-              <Nav className="ml-auto">
-                {/* <LinkContainer to="/cart">
-                  <Nav.Link>
-                    <i className="fas fa-shopping-cart"></i> Cart
-                  </Nav.Link>
-                </LinkContainer> */}
-                {/* {userInfo ? (
-                <NavDropdown title={userInfo.name} id="username">
-                  <LinkContainer to="/">
-                    <NavDropdown.Item>Home</NavDropdown.Item>
-                  </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
-              ) : ( */}
+              <Nav className="ml-auto"> 
                 <div
                   style={{
                     color: "white",
@@ -181,7 +170,6 @@ const OrderScreen = ({ match, history }) => {
         </Navbar>
       </header>
       <Container>
-        {/* <h1>Order {order._id}</h1> */}
         <Row className="mt-3">
           <Col md={8}>
             <ListGroup variant="flush">
@@ -190,24 +178,8 @@ const OrderScreen = ({ match, history }) => {
                 <p>
                   <strong>Id: </strong>
                   {user.userInfo.name}
-                  {/* {cart.shippingAddress.address}, {cart.shippingAddress.city}{" "}
-                {cart.shippingAddress.postalCode},{" "}
-                {cart.shippingAddress.country} */}
                 </p>
               </ListGroup.Item>
-
-              {/* <ListGroup.Item>
-                <h2>Payment Method</h2>
-                <p>
-                  <strong>Method: </strong>
-                  {order.paymentMethod}
-                </p>
-                {order.isPaid ? (
-                  <Message variant="success">Paid on {order.paidAt}</Message>
-                ) : (
-                  <Message variant="danger">Not Paid</Message>
-                )}
-              </ListGroup.Item> */}
 
               <ListGroup.Item>
                 <h2>Order Items</h2>
@@ -232,8 +204,8 @@ const OrderScreen = ({ match, history }) => {
                             </Link>
                           </Col>
                           <Col md={4}>
-                            {item.qty} x ${product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)} = $
-                            {product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)}
+                            {item.qty} x ${product.dripPrice ? (parseFloat(item.price) + (selectedRand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)} = $
+                            {product.dripPrice ? (parseFloat(item.price) + (selectedRand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)}
                           </Col>
                         </Row>
                       </ListGroup.Item>
@@ -249,24 +221,7 @@ const OrderScreen = ({ match, history }) => {
                 <ListGroup.Item>
                   <h2>Order Summary</h2>
                 </ListGroup.Item>
-                {/* <ListGroup.Item>
-                  <Row>
-                    <Col>Items</Col>
-                    <Col>${order.itemsPrice}</Col>
-                  </Row>
-                </ListGroup.Item> */}
-                {/* <ListGroup.Item>
-                  <Row>
-                    <Col>Shipping</Col>
-                    <Col>${order.shippingPrice}</Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Tax</Col>
-                    <Col>${order.taxPrice}</Col>
-                  </Row>
-                </ListGroup.Item> */}
+                
                 <ListGroup.Item>
                   <Row>
                     <Col>Total</Col>

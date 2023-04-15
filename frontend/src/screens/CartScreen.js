@@ -45,6 +45,14 @@ const CartScreen = ({ match, location, history }) => {
     history.push("/login?redirect=shipping");
   };
 
+  const rand1 = userInfo.rand1
+  const rand2 = userInfo.rand2
+  const rand3 = userInfo.rand3
+
+  const randArray = [rand1, rand2, rand3]
+
+  const selectedRand = randArray[product.category]
+
   return (
     <>
       <Header />
@@ -67,7 +75,7 @@ const CartScreen = ({ match, location, history }) => {
                       <Col md={3}>
                         <Link to={`/product/${item.product}`}>{item.name}</Link>
                       </Col>
-                      <Col md={2}>${product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)}</Col>
+                      <Col md={2}>${product.dripPrice ? (parseFloat(item.price) + (selectedRand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)}</Col>
                       <Col md={2}>
                         <Form.Control
                           as="select"
@@ -106,7 +114,7 @@ const CartScreen = ({ match, location, history }) => {
                   </h2>
                   $
                   {cartItems
-                    .reduce((acc, item) => acc + item.qty * (product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)), 0)
+                    .reduce((acc, item) => acc + item.qty * (product.dripPrice ? (parseFloat(item.price) + (selectedRand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)), 0)
                     .toFixed(2)}
                 </ListGroup.Item>
                 <ListGroup.Item>

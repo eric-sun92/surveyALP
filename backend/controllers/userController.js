@@ -17,7 +17,9 @@ const authUser = asyncHandler(async (req, res) => {
       email: user.email,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
-      rand: user.rand
+      rand1: user.rand1,
+      rand2: user.rand2,
+      rand3: user.rand3
     });
   } else {
     res.status(401);
@@ -51,7 +53,9 @@ const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
-      rand: user.rand
+      rand1: user.rand1,
+      rand2: user.rand2,
+      rand3: user.rand3,
     });
   } else {
     res.status(400);
@@ -71,7 +75,9 @@ const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      rand: user.rand
+      rand1: user.rand1,
+      rand2: user.rand2,
+      rand3: user.rand3
     });
   } else {
     res.status(404);

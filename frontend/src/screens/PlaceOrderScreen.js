@@ -40,6 +40,14 @@ const PlaceOrderScreen = ({ history }) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { product } = productDetails;
 
+  const rand1 = userInfo.rand1
+  const rand2 = userInfo.rand2
+  const rand3 = userInfo.rand3
+
+  const randArray = [rand1, rand2, rand3]
+
+  const selectedRand = randArray[product.category]
+
   if (!cart.shippingAddress.address) {
     history.push("/shipping");
   } else if (!cart.paymentMethod) {
@@ -51,21 +59,12 @@ const PlaceOrderScreen = ({ history }) => {
   };
 
   cart.itemsPrice = addDecimals(
-    cart.cartItems.reduce((acc, item) => acc + (product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)) * 1, 0)
+    cart.cartItems.reduce((acc, item) => acc + (product.dripPrice ? (parseFloat(item.price) + (selectedRand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)) * 1, 0)
   );
-
-  // shipping
-  // cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100);
-
-  // tax
-  // cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)));
 
   cart.totalPrice = cart.cartItems[0].dripPrice
     ? Number(cart.itemsPrice) + 1.7
-    : Number(parseFloat(cart.itemsPrice).toFixed(2))
-        // Number(cart.shippingPrice) +
-        // Number(cart.taxPrice)
-        ;
+    : Number(parseFloat(cart.itemsPrice).toFixed(2));
 
   const orderCreate = useSelector((state) => state.orderCreate);
   const { order, success, error } = orderCreate;
@@ -93,74 +92,16 @@ const PlaceOrderScreen = ({ history }) => {
     );
   };
 
-  // const [code, setCode] = useState();
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (code === user.userInfo.name) {
-  //     history.push("/");
-  //   }
-  // };
-
   return (
     <>
-      {/* <header>
-        <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
-          <Container>
-            <Form onSubmit={(e) => handleSubmit(e)}>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <div style={{ display: "flex" }}>
-                  <Form.Control
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
-                    placeholder="Enter Code"
-                    autoComplete="off"
-                  />
-                  <img
-                    className="ml-2"
-                    style={{ width: 235, height: 45 }}
-                    src="/images/randomNumbers.jpg"
-                    alt="custom number"
-                  />
-                </div>
-                <Form.Text className="text-muted">
-                  Enter ALP Account Number to Go Back to Home
-                </Form.Text>
-              </Form.Group>
-              <Form />
-              <Button type="submit">Survey Home</Button>;
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
-            </Form>
-          </Container>
-        </Navbar>
-      </header> */}
       <header>
         <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
           <Container>
             <LinkContainer to="/placeorder">
               <Navbar.Brand>Survey</Navbar.Brand>
             </LinkContainer>
-            {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
             <Navbar.Collapse id="basic-navbar-nav">
-              {/* <Route
-                render={({ history }) => <SearchBox history={history} />}
-              /> */}
               <Nav className="ml-auto">
-                {/* <LinkContainer to="/cart">
-                  <Nav.Link>
-                    <i className="fas fa-shopping-cart"></i> Cart
-                  </Nav.Link>
-                </LinkContainer> */}
-                {/* {userInfo ? (
-                <NavDropdown title={userInfo.name} id="username">
-                  <LinkContainer to="/">
-                    <NavDropdown.Item>Home</NavDropdown.Item>
-                  </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
-              ) : ( */}
                 <div
                   style={{
                     color: "white",
@@ -191,15 +132,8 @@ const PlaceOrderScreen = ({ history }) => {
         </Navbar>
       </header>
       <Container className="mt-5">
-        {/* <CheckoutSteps step1 step2 step3 step4 /> */}
         <Row>
           <Col md={8}>
-            {/* <ListGroup>
-              <ListGroup.Item></ListGroup.Item>
-            </ListGroup> */}
-            {/* <div stype={{ color: "white", fontSize: "10rem" }}>
-              Review and Place Order
-            </div> */}
             <ListGroup variant="flush">
               <ListGroup.Item>
                 <h1>Checkout</h1>
@@ -209,9 +143,6 @@ const PlaceOrderScreen = ({ history }) => {
                 <p>
                   <strong>Id: </strong>
                   {user.userInfo.name}
-                  {/* {cart.shippingAddress.address}, {cart.shippingAddress.city}{" "}
-                {cart.shippingAddress.postalCode},{" "}
-                {cart.shippingAddress.country} */}
                 </p>
               </ListGroup.Item>
 
@@ -234,8 +165,8 @@ const PlaceOrderScreen = ({ history }) => {
                           </Col>
                           <Col>{item.name}</Col>
                           <Col md={4}>
-                            {item.qty} x ${product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)} = $
-                            {product.dripPrice ? (parseFloat(item.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)}
+                            {item.qty} x ${product.dripPrice ? (parseFloat(item.price) + (selectedRand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)} = $
+                            {product.dripPrice ? (parseFloat(item.price) + (selectedRand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)}
                           </Col>
                         </Row>
                       </ListGroup.Item>
@@ -265,21 +196,9 @@ const PlaceOrderScreen = ({ history }) => {
                     ) : (
                       <Col>$0.00</Col>
                     )}
-                    {/* // <Col>${cart.shippingPrice}</Col> */}
                   </Row>
                 </ListGroup.Item>
-                {/* <ListGroup.Item>
-                  <Row>
-                    <Col>Shipping</Col>
-                    <Col>${cart.shippingPrice}</Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Tax</Col>
-                    <Col>${cart.taxPrice}</Col>
-                  </Row>
-                </ListGroup.Item> */}
+                
                 <ListGroup.Item>
                   <Row>
                     <Col>Estimated Total</Col>

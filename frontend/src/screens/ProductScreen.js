@@ -22,8 +22,7 @@ import {
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
 import Header from "../components/Header";
 import { addToCart } from "../actions/cartActions";
-// import Popup from "../components/Popup";
-// import Popup from "reactjs-popup";
+
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
@@ -86,6 +85,14 @@ const ProductScreen = ({ history, match }) => {
     "Gammamex",
     "OmegaBlue",
   ];
+
+  const rand1 = userInfo.rand1
+  const rand2 = userInfo.rand2
+  const rand3 = userInfo.rand3
+
+  const randArray = [rand1, rand2, rand3]
+
+  const selectedRand = randArray[product.category]
 
   return (
     <>
@@ -159,7 +166,7 @@ const ProductScreen = ({ history, match }) => {
                     />
                   </ListGroup.Item>
                   <ListGroup.Item>
-                    Price: ${product.dripPrice ? (parseFloat(product.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(product.price).toFixed(2)}
+                    Price: ${product.dripPrice ? (parseFloat(product.price) + (selectedRand * 0.05)).toFixed(2) : parseFloat(product.price).toFixed(2)}
                   </ListGroup.Item>
                   <ListGroup.Item>
                     Description: {product.description}
@@ -173,7 +180,7 @@ const ProductScreen = ({ history, match }) => {
                       <Row>
                         <Col>Price:</Col>
                         <Col>
-                          <strong>${product.dripPrice ? (parseFloat(product.price) + (userInfo.rand * 0.05)).toFixed(2) : parseFloat(product.price).toFixed(2)}</strong>
+                          <strong>${product.dripPrice ? (parseFloat(product.price) + (selectedRand * 0.05)).toFixed(2) : parseFloat(product.price).toFixed(2)}</strong>
                         </Col>
                       </Row>
                     </ListGroup.Item>
