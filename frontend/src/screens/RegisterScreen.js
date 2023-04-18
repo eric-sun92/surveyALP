@@ -33,7 +33,7 @@ const RegisterScreen = ({ match, location, history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push("/home");
+      history.push("/brand");
     }
   }, [history, userInfo, redirect]);
 

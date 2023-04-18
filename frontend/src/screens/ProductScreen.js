@@ -119,7 +119,7 @@ const ProductScreen = ({ history, match }) => {
             <button onClick={toggleModal} class="close"></button>
             <Button
               onClick={() => {
-                history.push("/home");
+                history.push("/brand");
               }}
             >
               RETURN TO MARKETPLACE
@@ -139,7 +139,7 @@ const ProductScreen = ({ history, match }) => {
       )}
 
       <Container style={{ backdropFilter: "blur(10px)" }}>
-        <Link className="btn btn-light my-3" to="/home">
+        <Link className="btn btn-light my-3" to="/brand">
           Go Back
         </Link>
         {loading ? (

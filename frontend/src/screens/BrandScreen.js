@@ -1,26 +1,25 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Container } from "react-bootstrap";
-import Product from "../components/Product";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import Paginate from "../components/Paginate";
 import Meta from "../components/Meta";
 import { listProducts } from "../actions/productActions";
 import Header from "../components/Header";
+import Brand from "../components/Brand"
 
-const HomeScreen = ({ match }) => {
+const BrandScreen = ({ match }) => {
   const keyword = match.params.keyword;
   const pageNumber = match.params.pageNumber || 1;
-
-  const brand = match.params.brand
 
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
 
-  const displayProducts = products.filter(item => item.category === brand);
+  const brandProducts = products.filter((item, index, self) => 
+    index === self.findIndex((t) => t.category === item.category)
+  );
 
   useEffect(() => {
     dispatch(listProducts(keyword, pageNumber));
@@ -39,17 +38,12 @@ const HomeScreen = ({ match }) => {
         ) : (
           <>
             <Row>
-              {displayProducts.map((product) => (
+              {brandProducts.map((product) => (
                 <Col key={product._id} sm={12} md={8} lg={6} xl={4}>
-                  <Product product={product} />
+                  <Brand product={product} />
                 </Col>
               ))}
             </Row>
-            <Paginate
-              pages={pages}
-              page={page}
-              keyword={keyword ? keyword : ""}
-            />
           </>
         )}
       </Container>
@@ -57,4 +51,4 @@ const HomeScreen = ({ match }) => {
   );
 };
 
-export default HomeScreen;
+export default BrandScreen;

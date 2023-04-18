@@ -111,7 +111,6 @@ const OrderScreen = ({ match, history }) => {
   }, [dispatch, orderId, successPay, successDeliver, order, userInfo, history]);
 
   const successPaymentHandler = (paymentResult) => {
-    // console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
     history.push("/complete");
   };
@@ -119,14 +118,6 @@ const OrderScreen = ({ match, history }) => {
   const deliverHandler = () => {
     dispatch(deliverOrder(order));
   };
-
-  // const [code, setCode] = useState();
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (code === user.userInfo.name) {
-  //     history.push("/");
-  //   }
-  // };
 
   return loading ? (
     <Loader />
@@ -150,7 +141,6 @@ const OrderScreen = ({ match, history }) => {
                 >
                   <i className="fas fa-user ml-1"></i> Home
                 </div>
-                {/* )} */}
                 {userInfo && userInfo.isAdmin && (
                   <NavDropdown title="Admin" id="adminmenu">
                     <LinkContainer to="/admin/userlist">
@@ -180,7 +170,6 @@ const OrderScreen = ({ match, history }) => {
                   {user.userInfo.name}
                 </p>
               </ListGroup.Item>
-
               <ListGroup.Item>
                 <h2>Order Items</h2>
                 {order.orderItems.length === 0 ? (
