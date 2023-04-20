@@ -37,9 +37,14 @@ const ShippingScreen = ({ history }) => {
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
     dispatch(savePaymentMethod("Default"));
 
-    if (address === user.userInfo.name && captchaToken !== null) {
+    if (address === "6F89PY78G" && captchaToken !== null) {
       history.push("/placeorder");
     }
+  };
+
+  window.onload = () => {
+    const myInput = document.getElementById("myInput");
+    myInput.onpaste = (e) => e.preventDefault();
   };
 
   return (
@@ -50,7 +55,7 @@ const ShippingScreen = ({ history }) => {
         <h1>Security Check</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="address">
-            <Form.Label>Confirm ALP Number</Form.Label>
+            <Form.Label>Confirm ALP Number: 6F89PY78G</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter ALP Number"
@@ -63,45 +68,9 @@ const ShippingScreen = ({ history }) => {
               }}
               autoComplete="off"
               autoSave="off"
+              id="myInput"
             ></Form.Control>
           </Form.Group>
-
-          {/* <Form.Group controlId="city">
-            <Form.Label>City</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter city"
-              value={city}
-              required
-              onChange={(e) => setCity(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
-
-          <Form.Group controlId="postalCode">
-            <Form.Label>Postal Code</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter postal code"
-              value={postalCode}
-              required
-              onChange={(e) => setPostalCode(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
-
-          <Form.Group controlId="country">
-            <Form.Label>Country</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter country"
-              value={country}
-              required
-              onChange={(e) => setCountry(e.target.value)}
-            ></Form.Control>
-          </Form.Group> */}
-          {/* <ReCAPTCHA
-            sitekey="6LdGRvYkAAAAAHAX3eTSozBL-Hmfc25wLqtL5qQs"
-            ref={captchaRef}
-          /> */}
           <Reaptcha
             sitekey="6LdGRvYkAAAAAHAX3eTSozBL-Hmfc25wLqtL5qQs"
             ref={captchaRef}

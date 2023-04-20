@@ -9,7 +9,7 @@ import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
 import { register } from "../actions/userActions";
 // import Header from "../components/Header";
-import { login, logout } from "../actions/userActions";
+import { login } from "../actions/userActions";
 
 const RegisterScreen = ({ match, location, history }) => {
 
@@ -18,13 +18,9 @@ const RegisterScreen = ({ match, location, history }) => {
   const [name, setName] = useState(alpid);
   const [email, setEmail] = useState(alpid);
   const [password, setPassword] = useState(alpid);
-  const [confirmPassword, setConfirmPassword] = useState(alpid);
   const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
-
-  // const userRegister = useSelector((state) => state.userRegister);
-  // const { loading, error, userInfo } = userRegister;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
@@ -39,9 +35,13 @@ const RegisterScreen = ({ match, location, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();       
-    if (password !== confirmPassword) {
-      setMessage("Passwords do not match");
-    } else {
+
+    const check = document.getElementById('myInput')
+    if(check.value !== "6F89PY78G") {
+      setMessage("Wrong ALP Number");
+    }
+
+    else {
       dispatch(register(name, email, password));
       dispatch(login(email, password));
     }
@@ -70,7 +70,7 @@ const RegisterScreen = ({ match, location, history }) => {
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="email">
-            <Form.Label>ALP Account Number</Form.Label>
+            <Form.Label>ALP Account Number: 6F89PY78G</Form.Label>
             <Form.Control
               placeholder="Enter Account Number"
               // value={email}
@@ -78,7 +78,6 @@ const RegisterScreen = ({ match, location, history }) => {
                 setEmail(alpid);
                 setName(alpid);
                 setPassword(alpid);
-                setConfirmPassword(alpid);
               }}
               id="myInput"
               autoComplete="off"

@@ -21,8 +21,6 @@ import {
 } from "../actions/productActions";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
 import Header from "../components/Header";
-import { addToCart } from "../actions/cartActions";
-
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);

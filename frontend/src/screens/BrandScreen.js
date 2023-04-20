@@ -15,7 +15,7 @@ const BrandScreen = ({ match }) => {
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products, page, pages } = productList;
+  const { loading, error, products} = productList;
 
   const brandProducts = products.filter((item, index, self) => 
     index === self.findIndex((t) => t.category === item.category)
