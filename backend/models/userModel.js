@@ -25,14 +25,6 @@ const userSchema = mongoose.Schema(
       type: Number,
       default: Math.floor(Math.random() * (Math.floor(35)))
     }
-    // rand2: {
-    //   type: Number,
-    //   default: Math.floor(Math.random() * (Math.floor(35)))
-    // },
-    // rand3: {
-    //   type: Number,
-    //   default: Math.floor(Math.random() * (Math.floor(35)))
-    // }
   },
   {
     timestamps: true,

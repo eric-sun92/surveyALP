@@ -84,13 +84,14 @@ const ProductScreen = ({ history, match }) => {
     "OmegaBlue",
   ];
 
-  const rand1 = userInfo.rand1
-  const rand2 = userInfo.rand2
-  const rand3 = userInfo.rand3
+  // const rand1 = userInfo.rand1
+  // const rand2 = userInfo.rand2
+  // const rand3 = userInfo.rand3
 
-  const randArray = [rand1, rand2, rand3]
+  // const randArray = [rand1, rand2, rand3]
 
-  const selectedRand = randArray[product.category]
+  // const selectedRand = randArray[product.category]
+  const selectedRand = userInfo.rand
 
   return (
     <>
