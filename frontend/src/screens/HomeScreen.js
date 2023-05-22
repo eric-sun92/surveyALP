@@ -31,7 +31,7 @@ const HomeScreen = ({ match }) => {
       <Header />
       <Container>
         <Meta />
-        <h1 className="mt-4">Giftcard Market Place</h1>
+        <h1 className="mt-4">Gift Card MarketPlace</h1>
         {loading ? (
           <Loader />
         ) : error ? (
