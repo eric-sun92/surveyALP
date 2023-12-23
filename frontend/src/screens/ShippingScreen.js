@@ -20,7 +20,7 @@ const ShippingScreen = ({ history }) => {
   const [country, setCountry] = useState(shippingAddress.country);
 
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.userLogin);
+  // const user = useSelector((state) => state.userLogin);
 
   const [captchaToken, setCaptchaToken] = useState(null);
   const captchaRef = useRef(null);
@@ -54,23 +54,23 @@ const ShippingScreen = ({ history }) => {
         <CheckoutSteps step1 step2 />
         <h1>Security Check</h1>
         <Form onSubmit={submitHandler}>
-          <Form.Group controlId="address">
-            <Form.Label>Confirm ALP Number: 6F89PY78G</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter ALP Number"
-              required
-              onChange={(e) => {
-                setAddress(e.target.value);
-                setCity(e.target.value);
-                setPostalCode(e.target.value);
-                setCountry(e.target.value);
-              }}
-              autoComplete="off"
-              autoSave="off"
-              id="myInput"
-            ></Form.Control>
-          </Form.Group>
+        <Form.Group>
+          <Form.Label>Confirm ALP Number: 6F89PY78G</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter ALP Number"
+            required
+            onChange={(e) => {
+              setAddress(e.target.value);
+              setCity(e.target.value);
+              setPostalCode(e.target.value);
+              setCountry(e.target.value);
+            }}
+            autoComplete="off"
+            autoSave="off"
+            id="myInput"
+          ></Form.Control>
+        </Form.Group>
           <Reaptcha
             sitekey="6LdGRvYkAAAAAHAX3eTSozBL-Hmfc25wLqtL5qQs"
             ref={captchaRef}

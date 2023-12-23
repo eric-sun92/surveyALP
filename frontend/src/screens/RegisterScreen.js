@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 import { Form, Button, Container, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -23,15 +23,15 @@ const RegisterScreen = ({ match, location, history }) => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const { loading, error } = userLogin;
   
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  // const redirect = location.search ? location.search.split("=")[1] : "/";
 
-  useEffect(() => {
-    if (userInfo) {
-      history.push("/brand");
-    }
-  }, [history, userInfo, redirect]);
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     history.push("/brand");
+  //   }
+  // }, [history, userInfo, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();       
@@ -44,6 +44,7 @@ const RegisterScreen = ({ match, location, history }) => {
     else {
       dispatch(register(name, email, password));
       dispatch(login(email, password));
+      history.push("/brand");
     }
   };
   window.onload = () => {

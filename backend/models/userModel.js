@@ -23,7 +23,6 @@ const userSchema = mongoose.Schema(
     },
     rand: {
       type: Number,
-      default: Math.floor(Math.random() * (Math.floor(35)))
     }
   },
   {
@@ -42,6 +41,9 @@ userSchema.pre('save', async function (next) {
 
   const salt = await bcrypt.genSalt(10)
   this.password = await bcrypt.hash(this.password, salt)
+
+  this.rand = Math.floor(Math.random() * 35)
+
 })
 
 const User = mongoose.model('User', userSchema)

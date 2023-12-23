@@ -53,9 +53,12 @@ const OrderScreen = ({ match, history }) => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  console.log('HERE', userInfo.name)
+  
 
   const productDetails = useSelector((state) => state.productDetails);
   const { product } = productDetails;
+  console.log(product)
 
   // const rand1 = userInfo.rand1
   // const rand2 = userInfo.rand2

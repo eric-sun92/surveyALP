@@ -4,7 +4,9 @@ import {
   CART_SAVE_SHIPPING_ADDRESS,
   CART_SAVE_PAYMENT_METHOD,
   CART_CLEAR_ITEMS,
+  ADD_TO_CART_ARRAY
 } from '../constants/cartConstants'
+
 
 export const cartReducer = (
   state = { cartItems: [], shippingAddress: {} },
@@ -49,6 +51,11 @@ export const cartReducer = (
         ...state,
         cartItems: [],
       }
+    // case ADD_TO_CART_ARRAY:
+    //   return {
+    //     ...state,
+    //     cartProductIds: [...state.cartProductIds, action.productId]
+    //   }
     default:
       return state
   }

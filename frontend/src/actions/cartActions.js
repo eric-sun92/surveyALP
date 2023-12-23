@@ -4,6 +4,7 @@ import {
   CART_REMOVE_ITEM,
   CART_SAVE_SHIPPING_ADDRESS,
   CART_SAVE_PAYMENT_METHOD,
+  // ADD_TO_CART_ARRAY
 } from "../constants/cartConstants";
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
@@ -52,3 +53,7 @@ export const savePaymentMethod = (data) => (dispatch) => {
 
   localStorage.setItem("paymentMethod", JSON.stringify(data));
 };
+
+// export function addToCartArray(productId) {
+//   return { type: ADD_TO_CART_ARRAY, productId };
+// }

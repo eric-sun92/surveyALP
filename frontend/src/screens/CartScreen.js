@@ -12,7 +12,7 @@ import {
   Container,
 } from "react-bootstrap";
 import Message from "../components/Message";
-import { addToCart, removeFromCart } from "../actions/cartActions";
+import { addToCart, removeFromCart, addToCartArray } from "../actions/cartActions";
 import Header from "../components/Header";
 
 const CartScreen = ({ match, location, history }) => {
@@ -34,6 +34,8 @@ const CartScreen = ({ match, location, history }) => {
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
+      // dispatch(addToCartArray(productId));
+
     }
   }, [dispatch, productId, qty]);
 
