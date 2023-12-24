@@ -13,7 +13,7 @@ const Header = () => {
   const { userInfo } = userLogin;
 
   const logoutHandler = () => {
-    dispatch(logout(userInfo.name));
+    dispatch(logout(userInfo.alpID));
   };
 
   return (

@@ -52,13 +52,10 @@ const OrderScreen = ({ match, history }) => {
   const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-  console.log('HERE', userInfo.name)
-  
+  const { userInfo } = userLogin;  
 
   const productDetails = useSelector((state) => state.productDetails);
   const { product } = productDetails;
-  console.log(product)
 
   // const rand1 = userInfo.rand1
   // const rand2 = userInfo.rand2
@@ -74,14 +71,7 @@ const OrderScreen = ({ match, history }) => {
   };
 
   if (!loading) {
-    //   Calculate prices
-    const addDecimals = (num) => {
-      return (Math.round(num * 100) / 100).toFixed(2);
-    };
-
-    order.itemsPrice = addDecimals(
-      order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-    );
+    order.itemsPrice = Number(order.orderItems.price).toFixed(2);
   }
 
   useEffect(() => {
@@ -176,33 +166,31 @@ const OrderScreen = ({ match, history }) => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <h2>Order Items</h2>
-                {order.orderItems.length === 0 ? (
+                {!order.orderItems ? (
                   <Message>Order is empty</Message>
                 ) : (
                   <ListGroup variant="flush">
-                    {order.orderItems.map((item, index) => (
-                      <ListGroup.Item key={index}>
-                        <Row>
-                          <Col md={1}>
-                            <Image
-                              src={item.image}
-                              alt={item.name}
-                              fluid
-                              rounded
-                            />
-                          </Col>
-                          <Col>
-                            <Link to={`/product/${item.product}`}>
-                              {item.name}
-                            </Link>
-                          </Col>
-                          <Col md={4}>
-                            {item.qty} x ${product.dripPrice ? (parseFloat(item.price) + (selectedRand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)} = $
-                            {product.dripPrice ? (parseFloat(item.price) + (selectedRand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)}
-                          </Col>
-                        </Row>
-                      </ListGroup.Item>
-                    ))}
+                    <ListGroup.Item>
+                      <Row>
+                        <Col md={1}>
+                          <Image
+                            src={order.orderItems.image}
+                            alt={order.orderItems.name}
+                            fluid
+                            rounded
+                          />
+                        </Col>
+                        <Col>
+                          <Link to={`/product/${order.orderItems.product}`}>
+                            {order.orderItems.name}
+                          </Link>
+                        </Col>
+                        <Col md={4}>
+                          {order.orderItems.qty} x ${product.dripPrice ? (parseFloat(order.orderItems.price) + (selectedRand * 0.05)).toFixed(2) : parseFloat(order.orderItems.price).toFixed(2)} = $
+                          {product.dripPrice ? (parseFloat(order.orderItems.price) + (selectedRand * 0.05)).toFixed(2) : parseFloat(order.orderItems.price).toFixed(2)}
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
                   </ListGroup>
                 )}
               </ListGroup.Item>

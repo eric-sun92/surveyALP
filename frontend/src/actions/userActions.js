@@ -58,7 +58,7 @@ export const login = (alpID) => async (dispatch) => {
   }
 };
 
-export const logout = (name) => (dispatch) => {
+export const logout = (alpID) => (dispatch) => {
   localStorage.removeItem("userInfo");
   localStorage.removeItem("cartItems");
   localStorage.removeItem("accountNumber");
@@ -67,7 +67,7 @@ export const logout = (name) => (dispatch) => {
   dispatch({ type: USER_DETAILS_RESET });
   dispatch({ type: ORDER_LIST_MY_RESET });
   dispatch({ type: USER_LIST_RESET });
-  document.location.href = `/login/${name}`;
+  document.location.href = `/login/${alpID}`;
 };
 
 export const register = (alpID) => async (dispatch) => {
@@ -82,7 +82,11 @@ export const register = (alpID) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post("/api/users", { alpID }, config);
+    const { data } = await axios.post(
+      "/api/users",
+      { alpID },
+      config
+    );
 
     dispatch({
       type: USER_REGISTER_SUCCESS,

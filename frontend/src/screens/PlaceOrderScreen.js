@@ -30,7 +30,7 @@ const PlaceOrderScreen = ({ history }) => {
   const { userInfo } = userLogin;
 
   const logoutHandler = () => {
-    dispatch(logout(userInfo.name));
+    dispatch(logout(userInfo.alpID));
   };
 
   const cart = useSelector((state) => state.cart);
@@ -38,6 +38,7 @@ const PlaceOrderScreen = ({ history }) => {
 
   const productDetails = useSelector((state) => state.productDetails);
   const { product } = productDetails;
+  console.log(productDetails)
 
   // const rand1 = userInfo.rand1
   // const rand2 = userInfo.rand2
@@ -76,7 +77,7 @@ const PlaceOrderScreen = ({ history }) => {
   const placeOrderHandler = () => {
     dispatch(
       createOrder({
-        orderItems: cart.cartItems,
+        orderItems: cart.cartItems[0],
         itemsPrice: cart.itemsPrice,
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,

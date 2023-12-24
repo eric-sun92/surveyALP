@@ -10,7 +10,7 @@ const authUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ alpID });
 
-  if (user && (await user.matchPassword(password))) {
+  if (user && (await user.matchPassword(alpID))) {
     res.json({
       _id: user._id,
       alpID: user.alpID,
@@ -41,6 +41,7 @@ const registerUser = asyncHandler(async (req, res) => {
     alpID: alpID,
     password: alpID,
   });
+
 
   if (user) {
     res.status(201).json({

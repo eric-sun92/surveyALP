@@ -34,6 +34,8 @@ const RegisterScreen = ({ match, location, history }) => {
     myInput.onpaste = (e) => e.preventDefault();
   };
 
+  console.log(alpID)
+
   return (
     <>
       <header>
