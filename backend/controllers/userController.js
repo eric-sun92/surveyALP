@@ -14,6 +14,7 @@ const authUser = asyncHandler(async (req, res) => {
     res.json({
       _id: user._id,
       alpID: user.alpID,
+      sid: user.sid,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
       rand: user.rand
@@ -28,7 +29,7 @@ const authUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { alpID } = req.body;
+  const { alpID, sid } = req.body;
 
   const userExists = await User.findOne({ alpID });
 
@@ -39,6 +40,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   const user = await User.create({
     alpID: alpID,
+    sid: sid,
     password: alpID,
   });
 
@@ -47,6 +49,7 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(201).json({
       _id: user._id,
       alpID: user.alpID,
+      sid: user.sid,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
       rand: user.rand
@@ -67,6 +70,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
     res.json({
       _id: user._id,
       alpID: user.alpID,
+      sid: user.sid,
       isAdmin: user.isAdmin,
       rand: user.rand
     });

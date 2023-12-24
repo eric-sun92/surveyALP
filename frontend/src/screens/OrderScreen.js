@@ -67,7 +67,7 @@ const OrderScreen = ({ match, history }) => {
   const selectedRand = userInfo.rand
 
   const logoutHandler = () => {
-    dispatch(logout(userInfo.name));
+    dispatch(logout(userInfo.alpID));
   };
 
   if (!loading) {
@@ -106,7 +106,12 @@ const OrderScreen = ({ match, history }) => {
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult));
-    history.push("/complete");
+    console.log(userInfo.sid)
+    const redirectUrl = `https://respond.rand.org/wix/6/p516324781676.aspx?__sid__=${userInfo.sid}&card1=0`;
+
+    // history.push("/complete");
+    window.location.href = redirectUrl;
+
   };
 
   const deliverHandler = () => {

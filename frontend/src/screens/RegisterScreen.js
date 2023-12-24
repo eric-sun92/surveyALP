@@ -9,6 +9,10 @@ import { register, login } from "../actions/userActions";
 
 const RegisterScreen = ({ match, location, history }) => {
   const alpID = match.params.id;
+
+  const queryParams = new URLSearchParams(location.search);
+  const sid = queryParams.get('sid');
+
   const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
@@ -23,7 +27,7 @@ const RegisterScreen = ({ match, location, history }) => {
     if (check.value !== "6F89PY78G") {
       setMessage("Wrong ALP Number");
     } else {
-      dispatch(register(alpID));
+      dispatch(register(alpID, sid));
       dispatch(login(alpID));
       history.push("/brand");
     }
@@ -33,8 +37,6 @@ const RegisterScreen = ({ match, location, history }) => {
     const myInput = document.getElementById("myInput");
     myInput.onpaste = (e) => e.preventDefault();
   };
-
-  console.log(alpID)
 
   return (
     <>

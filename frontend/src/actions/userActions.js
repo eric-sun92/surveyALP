@@ -70,7 +70,7 @@ export const logout = (alpID) => (dispatch) => {
   document.location.href = `/login/${alpID}`;
 };
 
-export const register = (alpID) => async (dispatch) => {
+export const register = (alpID, sid) => async (dispatch) => {
   try {
     dispatch({
       type: USER_REGISTER_REQUEST,
@@ -84,7 +84,7 @@ export const register = (alpID) => async (dispatch) => {
 
     const { data } = await axios.post(
       "/api/users",
-      { alpID },
+      { alpID, sid },
       config
     );
 
