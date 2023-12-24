@@ -44,7 +44,7 @@ const CartScreen = ({ match, location, history }) => {
   };
 
   const checkoutHandler = () => {
-    history.push("/shipping");
+    history.push("/security");
   };
 
   // const rand1 = userInfo.rand1

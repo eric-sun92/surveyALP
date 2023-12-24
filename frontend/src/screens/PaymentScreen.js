@@ -10,11 +10,6 @@ const PaymentScreen = ({ history }) => {
   window.history.forward(1);
 
   const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
-
-  if (!shippingAddress.address) {
-    history.push("/shipping");
-  }
 
   const [paymentMethod, setPaymentMethod] = useState("Giftcard");
 

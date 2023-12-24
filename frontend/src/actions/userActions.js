@@ -27,7 +27,7 @@ import {
 } from "../constants/userConstants";
 import { ORDER_LIST_MY_RESET } from "../constants/orderConstants";
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (alpID) => async (dispatch) => {
   try {
     dispatch({
       type: USER_LOGIN_REQUEST,
@@ -39,11 +39,7 @@ export const login = (email, password) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post(
-      "/api/users/login",
-      { email, password },
-      config
-    );
+    const { data } = await axios.post("/api/users/login", { alpID }, config);
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
@@ -65,7 +61,7 @@ export const login = (email, password) => async (dispatch) => {
 export const logout = (name) => (dispatch) => {
   localStorage.removeItem("userInfo");
   localStorage.removeItem("cartItems");
-  localStorage.removeItem("shippingAddress");
+  localStorage.removeItem("accountNumber");
   localStorage.removeItem("paymentMethod");
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_DETAILS_RESET });
@@ -74,7 +70,7 @@ export const logout = (name) => (dispatch) => {
   document.location.href = `/login/${name}`;
 };
 
-export const register = (name, email, password) => async (dispatch) => {
+export const register = (alpID) => async (dispatch) => {
   try {
     dispatch({
       type: USER_REGISTER_REQUEST,
@@ -86,11 +82,7 @@ export const register = (name, email, password) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post(
-      "/api/users",
-      { name, email, password },
-      config
-    );
+    const { data } = await axios.post("/api/users", { alpID }, config);
 
     dispatch({
       type: USER_REGISTER_SUCCESS,

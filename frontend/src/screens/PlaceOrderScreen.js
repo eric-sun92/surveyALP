@@ -48,11 +48,6 @@ const PlaceOrderScreen = ({ history }) => {
   // const selectedRand = randArray[product.category]
   const selectedRand = userInfo.rand
 
-  if (!cart.shippingAddress.address) {
-    history.push("/shipping");
-  } else if (!cart.paymentMethod) {
-    history.push("/payment");
-  }
   //   Calculate prices
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
@@ -82,8 +77,6 @@ const PlaceOrderScreen = ({ history }) => {
     dispatch(
       createOrder({
         orderItems: cart.cartItems,
-        shippingAddress: cart.shippingAddress,
-        paymentMethod: cart.paymentMethod,
         itemsPrice: cart.itemsPrice,
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,
