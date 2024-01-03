@@ -9,7 +9,8 @@ const addOrderItems = asyncHandler(async (req, res) => {
     orderItems,
     itemsPrice,
     totalPrice,
-    card
+    card,
+    sid
   } = req.body
 
   if (orderItems && orderItems.length === 0) {
@@ -22,7 +23,8 @@ const addOrderItems = asyncHandler(async (req, res) => {
       user: req.user._id,
       itemsPrice,
       totalPrice,
-      card
+      card,
+      sid
     })
 
     const createdOrder = await order.save()
@@ -47,6 +49,25 @@ const getOrderById = asyncHandler(async (req, res) => {
     throw new Error('Order not found')
   }
 })
+
+// @desc    Get order by SID
+// @route   GET /api/orders/sid/:sid
+// @access  Private
+const getOrderBySid = asyncHandler(async (req, res) => {
+  // Assuming 'orderItems' is an array and 'sid' is a field within the objects in that array
+  console.log(req.params.sid)
+  const order = await Order.findOne({ 'sid': req.params.sid }).populate(
+    'user',
+  );
+
+  if (order) {
+    res.json(order);
+  } else {
+    res.status(404);
+    throw new Error('Order not found with the given SID');
+  }
+});
+
 
 // @desc    Update order to paid
 // @route   GET /api/orders/:id/pay
@@ -115,4 +136,5 @@ export {
   updateOrderToDelivered,
   getMyOrders,
   getOrders,
+  getOrderBySid
 }

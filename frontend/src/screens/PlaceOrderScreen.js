@@ -82,7 +82,8 @@ const PlaceOrderScreen = ({ history }) => {
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
-        card: product.category
+        card: product.category,
+        sid: userInfo.sid
       })
     );
   };
