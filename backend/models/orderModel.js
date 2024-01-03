@@ -11,6 +11,10 @@ const orderSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    userID: {
+      type: String,
+      required: true
+    },
     orderItems: 
       {
         name: { type: String, required: true },

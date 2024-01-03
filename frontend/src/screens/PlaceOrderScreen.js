@@ -83,7 +83,8 @@ const PlaceOrderScreen = ({ history }) => {
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
         card: product.category,
-        sid: userInfo.sid
+        sid: userInfo.sid,
+        userID: userInfo.alpID
       })
     );
   };

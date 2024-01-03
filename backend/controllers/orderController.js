@@ -10,7 +10,8 @@ const addOrderItems = asyncHandler(async (req, res) => {
     itemsPrice,
     totalPrice,
     card,
-    sid
+    sid,
+    userID
   } = req.body
 
   if (orderItems && orderItems.length === 0) {
@@ -24,7 +25,8 @@ const addOrderItems = asyncHandler(async (req, res) => {
       itemsPrice,
       totalPrice,
       card,
-      sid
+      sid,
+      userID
     })
 
     const createdOrder = await order.save()
@@ -37,10 +39,23 @@ const addOrderItems = asyncHandler(async (req, res) => {
 // @route   GET /api/orders/:id
 // @access  Private
 const getOrderById = asyncHandler(async (req, res) => {
-  const order = await Order.findOne({ 'alpID': req.params.id }).populate(
+  const order = await Order.findById(req.params.id).populate(
+    'user',
+    'name email'
+  )
+
+  if (order) {
+    res.json(order)
+  } else {
+    res.status(404)
+    throw new Error('Order not found')
+  }
+})
+
+const getOrderByUserId = asyncHandler(async (req, res) => {
+  const order = await Order.findOne({ userID: req.params.userID }).populate(
     'user',
   );
-
 
   if (order) {
     res.json(order)
@@ -55,8 +70,7 @@ const getOrderById = asyncHandler(async (req, res) => {
 // @access  Private
 const getOrderBySid = asyncHandler(async (req, res) => {
   // Assuming 'orderItems' is an array and 'sid' is a field within the objects in that array
-  console.log(req.params.sid)
-  const order = await Order.findOne({ 'sid': req.params.sid }).populate(
+  const order = await Order.findOne({ 'orderItems.sid': req.params.sid }).populate(
     'user',
   );
 
@@ -136,5 +150,6 @@ export {
   updateOrderToDelivered,
   getMyOrders,
   getOrders,
-  getOrderBySid
+  getOrderBySid,
+  getOrderByUserId
 }
