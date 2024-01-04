@@ -27,11 +27,14 @@ const ProductScreen = ({ history, match }) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [modal, setModal] = useState(false);
+  const [products, setProducts] = useState([]);
+
 
   const dispatch = useDispatch();
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
+  console.log(product)
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -55,11 +58,30 @@ const ProductScreen = ({ history, match }) => {
       dispatch(listProductDetails(match.params.id));
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
+    
   }, [dispatch, match, successProductReview, product._id]);
+
+  useEffect(() => {
+    // Fetch your products and set state
+    // Replace this with your actual product fetching logic
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('/api/products'); // Replace with your API endpoint
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}`);
   };
+
+  
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -83,6 +105,22 @@ const ProductScreen = ({ history, match }) => {
     "Gammamex",
     "OmegaBlue",
   ];
+
+  const redirectToMatchingProduct = () => {
+    // Find the product matching your criteria
+    const matchingProduct = products.products.find(nonDripProduct => 
+      nonDripProduct.category === product.category && nonDripProduct.dripPrice === false);
+    
+    if (matchingProduct) {
+      // Redirect to the product page
+      history.push(`/product/${matchingProduct._id}`);
+      toggleModal()
+    } else {
+      // Handle case where no matching product is found
+      console.log('No matching product found');
+    }
+  };
+
 
   // const rand1 = userInfo.rand1
   // const rand2 = userInfo.rand2
@@ -108,7 +146,7 @@ const ProductScreen = ({ history, match }) => {
               alt="pic"
               src="/images/price-tag.png"
             ></img>
-            <h2>Low Price Alert</h2>
+            <h2>Lower Price Alert</h2>
             <p style={{ marginBottom: "4rem" }}>
               This item has an additional service fee.
               <br></br>
@@ -116,12 +154,8 @@ const ProductScreen = ({ history, match }) => {
               A similar gift card is available at a cheaper final price.
             </p>
             <button onClick={toggleModal} class="close"></button>
-            <Button
-              onClick={() => {
-                history.push("/brand");
-              }}
-            >
-              RETURN TO MARKETPLACE
+            <Button onClick={redirectToMatchingProduct}>
+              See Product
             </Button>
             <Button
               style={{ marginTop: "1rem", border: "none" }}
@@ -161,7 +195,8 @@ const ProductScreen = ({ history, match }) => {
                   <ListGroup.Item>
                     <Rating
                       value={product.rating}
-                      text={`Seller doesn’t have enough reviews for accurate rating`}
+                      text={`Seller rating pending`}
+                      hoverText="Hover text here"  // Add your custom hover text here
                     />
                   </ListGroup.Item>
                   <ListGroup.Item>

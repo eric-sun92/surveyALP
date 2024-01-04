@@ -38,15 +38,7 @@ const PlaceOrderScreen = ({ history }) => {
 
   const productDetails = useSelector((state) => state.productDetails);
   const { product } = productDetails;
-  console.log(productDetails)
 
-  // const rand1 = userInfo.rand1
-  // const rand2 = userInfo.rand2
-  // const rand3 = userInfo.rand3
-
-  // const randArray = [rand1, rand2, rand3]
-
-  // const selectedRand = randArray[product.category]
   const selectedRand = userInfo.rand
 
   //   Calculate prices
@@ -67,9 +59,13 @@ const PlaceOrderScreen = ({ history }) => {
 
   useEffect(() => {
     if (success) {
-      history.push(`/order/${order._id}`);
+      // history.push(`/order/${order._id}`);
       dispatch({ type: USER_DETAILS_RESET });
       dispatch({ type: ORDER_CREATE_RESET });
+      const redirectUrl = `https://respond.rand.org/wix/6/p516324781676.aspx?__sid__=${userInfo.sid}&card1=0`;
+
+      // history.push("/complete");
+      window.location.href = redirectUrl;
     }
     // eslint-disable-next-line
   }, [history, success]);
@@ -138,8 +134,8 @@ const PlaceOrderScreen = ({ history }) => {
               <ListGroup.Item>
                 <h2>User Info</h2>
                 <p>
-                  <strong>Id: </strong>
-                  {user.userInfo.name}
+                  <strong>Account Id: </strong>
+                  6F89PY78G
                 </p>
               </ListGroup.Item>
 
@@ -198,7 +194,7 @@ const PlaceOrderScreen = ({ history }) => {
                 
                 <ListGroup.Item>
                   <Row>
-                    <Col>Estimated Total</Col>
+                    <Col>Total</Col>
                     <Col>${cart.totalPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
@@ -212,7 +208,7 @@ const PlaceOrderScreen = ({ history }) => {
                     disabled={cart.cartItems === 0}
                     onClick={placeOrderHandler}
                   >
-                    Review and Place Order
+                    Place Order
                   </Button>
                 </ListGroup.Item>
               </ListGroup>

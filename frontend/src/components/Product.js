@@ -49,7 +49,7 @@ const Product = ({ product }) => {
         <Card.Text as="div">
           <Rating
             value={product.rating}
-            text={`Not enough reviews for accurate rating`}
+            text={`Seller rating pending`}
           />
         </Card.Text>
 

@@ -25,7 +25,7 @@ const RegisterScreen = ({ match, location, history }) => {
 
     const check = document.getElementById('myInput');
     if (check.value !== "6F89PY78G") {
-      setMessage("Wrong ALP Number");
+      setMessage("Invalid Account ID. ID's are case sensitive");
     } else {
       dispatch(register(alpID, sid));
       dispatch(login(alpID));
@@ -44,22 +44,23 @@ const RegisterScreen = ({ match, location, history }) => {
         <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
           <Container>
             <LinkContainer to={`/login/${alpID}`}>
-              <Navbar.Brand>Survey</Navbar.Brand>
+              <Navbar.Brand>Gift Card Marketplace</Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
           </Container>
         </Navbar>
       </header>
       <FormContainer>
-        <h1 className="mt-5">Gift Card Marketplace</h1>
+        <h1 className="mt-5">Welcome to the Gift Card Marketplace! </h1>
         {message && <Message variant="danger">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="alpID">
-            <Form.Label>ALP Account Number: 6F89PY78G</Form.Label>
+            <h6>Your Marketplace Account ID is below. Please enter it to login and begin shopping.</h6>
+            <Form.Label>Marketplace Account ID: 6F89PY78G</Form.Label>
             <Form.Control
-              placeholder="Enter Account Number"
+              placeholder="Enter Account ID"
               id="myInput"
               autoComplete="off"
             ></Form.Control>

@@ -30,7 +30,7 @@ const BrandScreen = ({ match }) => {
       <Header />
       <Container>
         <Meta />
-        <h1 className="mt-4">Gift Card MarketPlace</h1>
+        <h1 className="mt-4">Available Brands</h1>
         {loading ? (
           <Loader />
         ) : error ? (

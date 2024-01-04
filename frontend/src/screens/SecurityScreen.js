@@ -50,13 +50,14 @@ const SecurityScreen = ({ history }) => {
       <Header />
       <FormContainer>
         <CheckoutSteps step1 step2 />
-        <h1>Security Check</h1>
+        <h1>Account Verification</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group>
-            <Form.Label>Confirm ALP Number: 6F89PY78G</Form.Label>
+            <h6>Your Marketplace Account ID is below. Please enter it to confirm and continue to checkout.</h6>
+            <Form.Label>Marketplace Account ID: 6F89PY78G</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter ALP Number"
+              placeholder="Enter Account ID"
               required
               onChange={(e) => setAccountNumber(e.target.value)}
               autoComplete="off"
