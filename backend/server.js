@@ -35,22 +35,12 @@ app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/upload", uploadRoutes);
 
-app.get("/api/config/paypal", (req, res) =>
-  res.send(process.env.PAYPAL_CLIENT_ID)
-);
-
-//POST route
 router.post("/api/verify", async (req, res) => {
-  console.log("test");
-  //Destructuring response token from request body
   const { token } = req.body;
 
-  //sends secret key and response token to google
   await axios.post(
     `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY}&response=${token}`
   );
-
-  //check response status and send back to the client-side
   if (res.status(200)) {
     res.send("Human");
   } else {

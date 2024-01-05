@@ -31,7 +31,6 @@ const SecurityScreen = ({ history }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(accountNumber)
     // Here you can dispatch an action to save alp_id or do other operations
     dispatch(saveAccountNumber({ accountNumber }));
 
@@ -39,11 +38,6 @@ const SecurityScreen = ({ history }) => {
       history.push("/placeorder");
     }
   };
-
-  // window.onload = () => {
-  //   const myInput = document.getElementById("myInput");
-  //   myInput.onpaste = (e) => e.preventDefault();
-  // };
 
   return (
     <>

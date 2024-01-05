@@ -6,10 +6,21 @@ const SearchBox = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (keyword.trim()) {
-      history.push(`/search/${keyword}`);
+    const trimmedKeyword = keyword.trim().toLowerCase();
+
+    if (trimmedKeyword) {
+      if (trimmedKeyword.startsWith('starbucks') || ("starbucks").startsWith(trimmedKeyword)) {
+        history.push('/home/1');
+      } else if (trimmedKeyword.startsWith("domino's") || ("domino's").startsWith(trimmedKeyword) 
+                || trimmedKeyword.startsWith("dominos") || ("dominos").startsWith(trimmedKeyword)) {
+        history.push('/home/0');
+      } else if (trimmedKeyword.startsWith('subway') || ("subway").startsWith(trimmedKeyword)) {
+        history.push('/home/2');
+      } else {
+        history.push(`/brand`);
+      }
     } else {
-      history.push("/");
+      history.push("/brand");
     }
   };
 

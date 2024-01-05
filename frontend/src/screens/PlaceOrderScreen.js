@@ -9,7 +9,6 @@ import {
   Container,
   Navbar,
   Nav,
-  NavDropdown,
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
@@ -34,7 +33,6 @@ const PlaceOrderScreen = ({ history }) => {
   };
 
   const cart = useSelector((state) => state.cart);
-  const user = useSelector((state) => state.userLogin);
 
   const productDetails = useSelector((state) => state.productDetails);
   const { product } = productDetails;
@@ -55,7 +53,7 @@ const PlaceOrderScreen = ({ history }) => {
     : Number(parseFloat(cart.itemsPrice).toFixed(2));
 
   const orderCreate = useSelector((state) => state.orderCreate);
-  const { order, success, error } = orderCreate;
+  const { success, error } = orderCreate;
 
   useEffect(() => {
     if (success) {

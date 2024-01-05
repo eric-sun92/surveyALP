@@ -56,7 +56,7 @@ const RegisterScreen = ({ match, location, history }) => {
         {error && <Message variant="danger">{error}</Message>}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
-          <Form.Group controlId="alpID">
+          <Form.Group>
             <h6>Your Marketplace Account ID is below. Please enter it to login and begin shopping.</h6>
             <Form.Label>Marketplace Account ID: 6F89PY78G</Form.Label>
             <Form.Control
