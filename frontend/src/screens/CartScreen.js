@@ -47,13 +47,6 @@ const CartScreen = ({ match, location, history }) => {
     history.push("/security");
   };
 
-  // const rand1 = userInfo.rand1
-  // const rand2 = userInfo.rand2
-  // const rand3 = userInfo.rand3
-
-  // const randArray = [rand1, rand2, rand3]
-
-  // const selectedRand = randArray[product.category]
   const selectedRand = userInfo.rand
 
   return (
@@ -61,7 +54,11 @@ const CartScreen = ({ match, location, history }) => {
       <Header />
       <Container className="mt-3">
         <Row>
+          
           <Col md={8}>
+            <Link className="btn btn-light" to="/brand">
+              Go Back
+            </Link>
             <h1>Shopping Cart</h1>
             {cartItems.length === 0 ? (
               <Message>

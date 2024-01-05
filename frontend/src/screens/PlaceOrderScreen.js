@@ -105,20 +105,6 @@ const PlaceOrderScreen = ({ history }) => {
                 >
                   <i className="fas fa-user ml-1"></i> Home
                 </div>
-                {/* )} */}
-                {userInfo && userInfo.isAdmin && (
-                  <NavDropdown title="Admin" id="adminmenu">
-                    <LinkContainer to="/admin/userlist">
-                      <NavDropdown.Item>Users</NavDropdown.Item>
-                    </LinkContainer>
-                    <LinkContainer to="/admin/productlist">
-                      <NavDropdown.Item>Products</NavDropdown.Item>
-                    </LinkContainer>
-                    <LinkContainer to="/admin/orderlist">
-                      <NavDropdown.Item>Orders</NavDropdown.Item>
-                    </LinkContainer>
-                  </NavDropdown>
-                )}
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -129,7 +115,21 @@ const PlaceOrderScreen = ({ history }) => {
           <Col md={8}>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h1>Checkout</h1>
+              <h1>Checkout</h1>
+              <p>
+                If you would like to empty your cart and begin again, please click the link below. 
+              </p>
+              <button style={{
+                color: "red",
+                padding: '10px 20px',
+                border: 'none',
+                borderRadius: '5px',
+                marginBottom: '5px',
+                fontWeight: 'bold',
+              }} onClick={logoutHandler}>
+                Empty Cart and Begin Again
+              </button>              
+              <p>Note you will be logged out and must restart your session.</p>
               </ListGroup.Item>
               <ListGroup.Item>
                 <h2>User Info</h2>
@@ -198,9 +198,10 @@ const PlaceOrderScreen = ({ history }) => {
                     <Col>${cart.totalPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
-                <ListGroup.Item>
-                  {error && <Message variant="danger">{error}</Message>}
-                </ListGroup.Item>
+                  {error && 
+                    <ListGroup.Item>
+                      <Message variant="danger">{error}</Message>
+                    </ListGroup.Item>}
                 <ListGroup.Item>
                   <Button
                     type="button"

@@ -20,16 +20,14 @@ const Header = () => {
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
-          <LinkContainer to="/brand">
-            <Navbar.Brand>Gift Card Marketplace</Navbar.Brand>
-          </LinkContainer>
+          <Navbar.Brand>Gift Card Marketplace</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className="ml-auto">
               <LinkContainer to="/cart">
                 <Nav.Link>
-                  <i className="fas fa-shopping-cart"></i> Cart
+                  Cart <i className="fas fa-shopping-cart"></i>
                 </Nav.Link>
               </LinkContainer>
               <div
@@ -37,10 +35,11 @@ const Header = () => {
                   color: "white",
                   cursor: "pointer",
                   marginTop: "0.7rem",
+                  marginLeft: "0.5rem"
                 }}
                 onClick={logoutHandler}
               >
-                <i className="fas fa-user ml-1"></i> Home
+               Logout <i className="fas fa-user ml-0.5"></i>
               </div>
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title="Admin" id="adminmenu">
