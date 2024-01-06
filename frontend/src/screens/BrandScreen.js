@@ -14,16 +14,22 @@ const BrandScreen = ({ match }) => {
 
   const dispatch = useDispatch();
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const productList = useSelector((state) => state.productList);
   const { loading, error, products} = productList;
-
-  const brandProducts = products.filter((item, index, self) => 
-    index === self.findIndex((t) => t.category === item.category)
-  );
 
   useEffect(() => {
     dispatch(listProducts(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber]);
+
+  // Create newProducts only after products are fetched
+  const newProducts = products && userInfo ? userInfo.itemOrder.map(index => products[index]).filter(product => product) : [];
+
+  const brandProducts = newProducts.filter((item, index, self) => 
+    index === self.findIndex((t) => t.category === item.category)
+  );
 
   return (
     <>

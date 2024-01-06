@@ -18,21 +18,13 @@ const getProducts = asyncHandler(async (req, res) => {
     : {};
 
   const count = await Product.countDocuments({ ...keyword });
-  const products1 = await Product.find({ ...keyword })
+  const products = await Product.find({ ...keyword })
+    .populate('user')
     .limit(pageSize)
     .skip(pageSize * (page - 1));
 
-  // const shuffleArray = (array) => {
-  //   for (let i = array.length - 1; i > 0; i--) {
-  //     const j = Math.floor(Math.random() * (i + 1));
-  //     const temp = array[i];
-  //     array[i] = array[j];
-  //     array[j] = temp;
-  //   }
-  // };
-  // console.log(products);
-  // const shuffledArray = shuffleArray(products);
-  const products = products1.sort(() => Math.random() - 0.5);
+  // const products = products1.sort(() => Math.random() - 0.5);
+
   res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
@@ -72,15 +64,21 @@ const deleteProduct = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const createProduct = asyncHandler(async (req, res) => {
   const product = new Product({
-    name: "Sample name",
+    name: "$10 Starbucks Gift Card",
     price: 0,
     user: req.user._id,
-    image: "/images/sample.jpg",
-    brand: "Sample brand",
-    category: "Sample category",
+    image: "/images/starbucks.jpg",
+    brand: "Starbucks",
+    category: 1,
     countInStock: 0,
-    numReviews: 0,
-    description: "Sample description",
+    description: "This $10 Gift Card can be used to purchase eligible goods and services available at Starbucks.",
+    reviews: [],
+    rating: 0,
+    price: 8.5,
+    countInStock: 10000,
+    dripPrice: false,
+    cardNumber: 5
+
   });
 
   const createdProduct = await product.save();
@@ -132,7 +130,7 @@ const createProductReview = asyncHandler(async (req, res) => {
     }
 
     const review = {
-      name: req.user.name,
+      name: req.user.alpID,
       rating: Number(rating),
       comment,
       user: req.user._id,

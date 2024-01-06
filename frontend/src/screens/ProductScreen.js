@@ -85,6 +85,7 @@ const ProductScreen = ({ history, match }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    console.log(match.params.id, rating, comment)
     dispatch(
       createProductReview(match.params.id, {
         rating,
@@ -119,6 +120,8 @@ const ProductScreen = ({ history, match }) => {
       Cart already full
     </Tooltip>
   );
+
+  console.log(product.reviews)
 
   return (
     <>

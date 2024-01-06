@@ -25,6 +25,9 @@ const userSchema = mongoose.Schema(
     },
     servicesPermutation: {
       type: [String], // Array of strings
+    },
+    itemOrder: {
+      type: [Number]
     }
   },
   {
@@ -66,6 +69,9 @@ userSchema.pre('save', async function (next) {
 
   this.rand = Math.floor(Math.random() * 33)
   this.servicesPermutation = shuffleArray(services);
+
+  const itemOrder = [0, 1, 2, 3, 4, 5];
+  this.itemOrder = shuffleArray(itemOrder);
 
 })
 

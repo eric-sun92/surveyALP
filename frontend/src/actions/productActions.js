@@ -204,6 +204,8 @@ export const createProductReview =
         },
       };
 
+      console.log('review', review)
+
       await axios.post(`/api/products/${productId}/reviews`, review, config);
 
       dispatch({
