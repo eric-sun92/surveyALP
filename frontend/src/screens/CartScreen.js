@@ -25,26 +25,22 @@ const CartScreen = ({ match, location, history }) => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
-  const productDetails = useSelector((state) => state.productDetails);
-  const { product } = productDetails;
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    if (productId) {
+    if (cartItems.length === 0) {
       dispatch(addToCart(productId, qty));
-      // dispatch(addToCartArray(productId));
 
     }
-  }, [dispatch, productId, qty]);
+  }, [dispatch, productId, qty, cartItems]);
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
 
   const checkoutHandler = () => {
-    history.push("/security");
+    history.push("/verify");
   };
 
   const selectedRand = userInfo.rand
@@ -75,7 +71,7 @@ const CartScreen = ({ match, location, history }) => {
                       <Col md={3}>
                         <Link to={`/product/${item.product}`}>{item.name}</Link>
                       </Col>
-                      <Col md={2}>${product.dripPrice ? (parseFloat(item.price) + (selectedRand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)}</Col>
+                      <Col md={2}>${item.dripPrice ? (parseFloat(item.price) + (selectedRand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)}</Col>
                       <Col md={2}>
                         <Form.Control
                           as="select"
@@ -113,9 +109,12 @@ const CartScreen = ({ match, location, history }) => {
                     {cartItems.reduce((acc, item) => acc + item.qty, 0)}) items
                   </h2>
                   $
-                  {cartItems
-                    .reduce((acc, item) => acc + item.qty * (product.dripPrice ? (parseFloat(item.price) + (selectedRand * 0.05)).toFixed(2) : parseFloat(item.price).toFixed(2)), 0)
-                    .toFixed(2)}
+                  {
+                    cartItems[0] 
+                      ? (cartItems[0].qty * (cartItems[0].dripPrice ? (parseFloat(cartItems[0].price) + (selectedRand * 0.05)) : parseFloat(cartItems[0].price)))
+                          .toFixed(2)
+                      : '0.00'
+                  }
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Button

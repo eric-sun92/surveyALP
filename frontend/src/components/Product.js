@@ -4,30 +4,12 @@ import { Card } from "react-bootstrap";
 import Rating from "./Rating";
 import { useSelector } from "react-redux";
 
-const services = [
-  "Acme",
-  "Poseidon",
-  "Betamax",
-  "iBuy",
-  "Gammamex",
-  "OmegaBlue",
-];
-
 const Product = ({ product }) => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  // const rand1 = userInfo.rand1
-  // const rand2 = userInfo.rand2
-  // const rand3 = userInfo.rand3
-
-  // const randArray = [rand1, rand2, rand3]
-
-  // const selectedRand = randArray[product.category]
   const selectedRand = userInfo.rand
-
-
 
   return (
     <Card className="my-3 p-3 rounded">
@@ -43,7 +25,7 @@ const Product = ({ product }) => {
         </Link>
 
         <Card.Text as="div">
-          Sold by {services[Math.floor(Math.random() * services.length)]}
+          Sold by {userInfo.servicesPermutation[product.cardNumber]}
         </Card.Text>
 
         <Card.Text as="div">

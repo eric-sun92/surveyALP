@@ -17,7 +17,8 @@ const authUser = asyncHandler(async (req, res) => {
       sid: user.sid,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
-      rand: user.rand
+      rand: user.rand,
+      servicesPermutation: user.servicesPermutation
     });
   } else {
     res.status(401);
@@ -52,7 +53,8 @@ const registerUser = asyncHandler(async (req, res) => {
       sid: user.sid,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
-      rand: user.rand
+      rand: user.rand,
+      servicesPermutation: user.servicesPermutation
     });
   } else {
     res.status(400);
@@ -67,12 +69,14 @@ const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
+    console.log('1:', user.servicesPermutation)
     res.json({
       _id: user._id,
       alpID: user.alpID,
       sid: user.sid,
       isAdmin: user.isAdmin,
-      rand: user.rand
+      rand: user.rand,
+      servicesPermutation: user.servicesPermutation
     });
   } else {
     res.status(404);

@@ -17,7 +17,7 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
 
       <Nav.Item>
         {step2 ? (
-          <LinkContainer to="/security">
+          <LinkContainer to="/verify">
             <Nav.Link>Verification</Nav.Link>
           </LinkContainer>
         ) : (

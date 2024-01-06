@@ -6,7 +6,7 @@ import ProductScreen from "./screens/ProductScreen";
 import CartScreen from "./screens/CartScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import ProfileScreen from "./screens/ProfileScreen";
-import SecurityScreen from "./screens/SecurityScreen";
+import VerificationScreen from "./screens/VerificationScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
@@ -18,7 +18,7 @@ const App = () => {
     <Router>
       <main className="">
         <Route path="/order/:id" component={OrderScreen} />
-        <Route path="/security" component={SecurityScreen} />
+        <Route path="/verify" component={VerificationScreen} />
         <Route path="/payment" component={PaymentScreen} />
         <Route path="/placeorder" component={PlaceOrderScreen} />
         <Route path="/register" component={RegisterScreen} />

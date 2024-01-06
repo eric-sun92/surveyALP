@@ -68,11 +68,16 @@ const productSchema = mongoose.Schema(
       type: Boolean,
       required: true,
     },
+    cardNumber: {
+      type: Number,
+      required: true
+    }
   },
   {
     timestamps: true,
   }
 );
+
 
 const Product = mongoose.model("Product", productSchema);
 

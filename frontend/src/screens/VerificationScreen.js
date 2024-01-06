@@ -7,7 +7,7 @@ import { saveAccountNumber } from "../actions/cartActions";
 import Header from "../components/Header";
 import Reaptcha from "reaptcha";
 
-const SecurityScreen = ({ history }) => {
+const VerificationScreen = ({ history }) => {
   window.history.forward(1);
   
 
@@ -73,4 +73,4 @@ const SecurityScreen = ({ history }) => {
   );
 };
 
-export default SecurityScreen;
+export default VerificationScreen;

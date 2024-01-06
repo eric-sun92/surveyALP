@@ -10,7 +10,10 @@ import {
   Button,
   Form,
   Container,
+  OverlayTrigger, 
+  Tooltip
 } from "react-bootstrap";
+
 import Rating from "../components/Rating";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
@@ -80,8 +83,6 @@ const ProductScreen = ({ history, match }) => {
     history.push(`/cart/${match.params.id}`);
   };
 
-  
-
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
@@ -95,15 +96,6 @@ const ProductScreen = ({ history, match }) => {
   const toggleModal = () => {
     setModal(!modal);
   };
-
-  const services = [
-    "Acme",
-    "Poseidon",
-    "Betamax",
-    "iBuy",
-    "Gammamex",
-    "OmegaBlue",
-  ];
 
   const redirectToMatchingProduct = () => {
     // Find the product matching your criteria
@@ -121,6 +113,12 @@ const ProductScreen = ({ history, match }) => {
   };
 
   const selectedRand = userInfo.rand
+
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Cart already full
+    </Tooltip>
+  );
 
   return (
     <>
@@ -181,7 +179,8 @@ const ProductScreen = ({ history, match }) => {
                 <ListGroup variant="flush">
                   <ListGroup.Item>
                     <h3>{product.name}</h3>
-                    Sold by {services[Math.floor(Math.random() * services.length)]}
+                    {/* Sold by {services[Math.floor(Math.random() * services.length)]} */}
+                    Sold by {userInfo.servicesPermutation[product.cardNumber]}
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <Rating
@@ -214,9 +213,7 @@ const ProductScreen = ({ history, match }) => {
                       <Row>
                         <Col>Status:</Col>
                         <Col>
-                          {cart.cartItems.length === 0
-                            ? "In Stock"
-                            : "Cart already full"}
+                        "In Stock"
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -240,16 +237,27 @@ const ProductScreen = ({ history, match }) => {
                     )}
 
                     <ListGroup.Item>
-                      <Button
-                        className="btn-block cart-btn profile"
-                        type="button"
-                        disabled={product.countInStock === 0 || cartItem}
-                        onClick={
-                          product.dripPrice ? toggleModal : addToCartHandler
-                        }
-                      >
-                        Add To Cart
-                      </Button>
+                    <Button
+                      className="btn-block cart-btn profile"
+                      type="button"
+                      disabled={product.countInStock === 0 || cartItem}
+                      onClick={
+                        product.dripPrice ? toggleModal : addToCartHandler
+                      }
+                    >
+                      {product.countInStock === 0 || cartItem ? (
+                        <OverlayTrigger
+                          placement="top"
+                          overlay={renderTooltip}
+                        >
+                          <span className="d-inline-block" tabIndex="0">
+                            <div style={{ pointerEvents: 'none' }}>Add To Cart</div>
+                          </span>
+                        </OverlayTrigger>
+                      ) : (
+                        "Add To Cart"
+                      )}
+                    </Button>
                     </ListGroup.Item>
                   </ListGroup>
                 </Card>

@@ -10,8 +10,6 @@ import {
   Navbar,
   Nav,
 } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
-
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import { createOrder } from "../actions/orderActions";
@@ -33,9 +31,7 @@ const PlaceOrderScreen = ({ history }) => {
   };
 
   const cart = useSelector((state) => state.cart);
-
-  const productDetails = useSelector((state) => state.productDetails);
-  const { product } = productDetails;
+  const product = cart.cartItems[0]
 
   const selectedRand = userInfo.rand
 
@@ -86,28 +82,29 @@ const PlaceOrderScreen = ({ history }) => {
   return (
     <>
       <header>
-        <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
-          <Container>
-            <LinkContainer to="/placeorder">
-              <Navbar.Brand>Survey</Navbar.Brand>
-            </LinkContainer>
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="ml-auto">
-                <div
-                  style={{
-                    color: "white",
-                    cursor: "pointer",
-                    marginTop: "0.7rem",
-                  }}
-                  onClick={logoutHandler}
-                >
-                  <i className="fas fa-user ml-1"></i> Home
-                </div>
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-      </header>
+      <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
+        <Container>
+          <Navbar.Brand>Gift Card Marketplace</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ml-auto">
+              <div
+                style={{
+                  color: "white",
+                  cursor: "pointer",
+                  marginTop: "0.7rem",
+                  marginLeft: "0.5rem"
+                }}
+                onClick={logoutHandler}
+              >
+               Logout <i className="fas fa-user ml-0.5"></i>
+              </div>
+              
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </header>
       <Container className="mt-5">
         <Row>
           <Col md={8}>
@@ -192,8 +189,8 @@ const PlaceOrderScreen = ({ history }) => {
                 
                 <ListGroup.Item>
                   <Row>
-                    <Col>Total</Col>
-                    <Col>${cart.totalPrice.toFixed(2)}</Col>
+                    <Col style={{ fontWeight: '900' }}>Total</Col>
+                    <Col style={{ fontWeight: '900' }}>${cart.totalPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                   {error && 
