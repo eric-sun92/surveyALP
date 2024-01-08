@@ -1,20 +1,14 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import SearchBox from "./SearchBox";
-import { logout } from "../actions/userActions";
 
 const Header = () => {
-  const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-
-  const logoutHandler = () => {
-    dispatch(logout(userInfo.alpID));
-  };
 
   return (
     <header>
@@ -30,7 +24,7 @@ const Header = () => {
                   Cart <i className="fas fa-shopping-cart"></i>
                 </Nav.Link>
               </LinkContainer>
-              <div
+              {/* <div
                 style={{
                   color: "white",
                   cursor: "pointer",
@@ -40,7 +34,7 @@ const Header = () => {
                 onClick={logoutHandler}
               >
                Logout <i className="fas fa-user ml-0.5"></i>
-              </div>
+              </div> */}
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title="Admin" id="adminmenu">
                   <LinkContainer to="/admin/userlist">

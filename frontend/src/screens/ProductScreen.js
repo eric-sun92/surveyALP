@@ -80,12 +80,11 @@ const ProductScreen = ({ history, match }) => {
   }, []);
 
   const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}`);
+      history.push(`/cart/${match.params.id}`);
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(match.params.id, rating, comment)
     dispatch(
       createProductReview(match.params.id, {
         rating,
@@ -95,7 +94,7 @@ const ProductScreen = ({ history, match }) => {
   };
 
   const toggleModal = () => {
-    setModal(!modal);
+      setModal(!modal);
   };
 
   const redirectToMatchingProduct = () => {
@@ -145,7 +144,7 @@ const ProductScreen = ({ history, match }) => {
             </p>
             <button onClick={toggleModal} class="close"></button>
             <Button onClick={redirectToMatchingProduct}>
-              See Product
+              See Alternative Offer
             </Button>
             <Button
               style={{ marginTop: "1rem", border: "none" }}
@@ -243,7 +242,7 @@ const ProductScreen = ({ history, match }) => {
                       type="button"
                       disabled={product.countInStock === 0 || cartItem}
                       onClick={
-                        product.dripPrice ? toggleModal : addToCartHandler
+                        product.dripPrice && !userInfo.isControl ? toggleModal : addToCartHandler
                       }
                     >
                       {product.countInStock === 0 || cartItem ? (

@@ -8,7 +8,6 @@ import {
   Card,
   Container,
   Navbar,
-  Nav,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
@@ -87,7 +86,7 @@ const PlaceOrderScreen = ({ history }) => {
           <Navbar.Brand>Gift Card Marketplace</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ml-auto">
+            {/* <Nav className="ml-auto">
               <div
                 style={{
                   color: "white",
@@ -100,7 +99,7 @@ const PlaceOrderScreen = ({ history }) => {
                Logout <i className="fas fa-user ml-0.5"></i>
               </div>
               
-            </Nav>
+            </Nav> */}
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -124,7 +123,7 @@ const PlaceOrderScreen = ({ history }) => {
               }} onClick={logoutHandler}>
                 Empty Cart and Begin Again
               </button>              
-              <p>Note you will be logged out and must restart your session.</p>
+              <p>Note you be asked to re-enter your account ID.</p>
               </ListGroup.Item>
               <ListGroup.Item>
                 <h2>User Info</h2>

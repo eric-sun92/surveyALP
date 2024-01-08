@@ -35,7 +35,8 @@ const authUser = asyncHandler(async (req, res) => {
     token: generateToken(user._id),
     rand: user.rand,
     servicesPermutation: user.servicesPermutation,
-    itemOrder: user.itemOrder
+    itemOrder: user.itemOrder,
+    isControl: user.isControl
   });
 });
 
@@ -68,7 +69,8 @@ const registerUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
       rand: user.rand,
       servicesPermutation: user.servicesPermutation,
-      itemOrder: user.itemOrder
+      itemOrder: user.itemOrder,
+      isControl: user.isControl
     });
   } else {
     res.status(400);
@@ -90,7 +92,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
       isAdmin: user.isAdmin,
       rand: user.rand,
       servicesPermutation: user.servicesPermutation,
-      itemOrder: user.itemOrder
+      itemOrder: user.itemOrder,
+      isControl: user.isControl
     });
   } else {
     res.status(404);

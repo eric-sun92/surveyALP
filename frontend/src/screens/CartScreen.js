@@ -15,7 +15,7 @@ import Message from "../components/Message";
 import { addToCart, removeFromCart, addToCartArray } from "../actions/cartActions";
 import Header from "../components/Header";
 
-const CartScreen = ({ match, location, history }) => {
+const CartScreen = ({ match, history }) => {
   const productId = match.params.id;
 
   const qty = 1;
@@ -31,9 +31,8 @@ const CartScreen = ({ match, location, history }) => {
   useEffect(() => {
     if (cartItems.length === 0) {
       dispatch(addToCart(productId, qty));
-
     }
-  }, [dispatch, productId, qty, cartItems]);
+  }, []);
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));

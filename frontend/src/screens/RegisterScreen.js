@@ -28,9 +28,9 @@ const RegisterScreen = ({ match, location, history }) => {
       setMessage("Invalid Account ID. IDs are case sensitive");
       return;
     }
-  
+    await dispatch(register(alpID, sid));
+
     try {
-      await dispatch(register(alpID, sid));
       await dispatch(login(alpID));
       // If login is successful, navigate to /brand
       history.push("/brand");
