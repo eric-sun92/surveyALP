@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import generateToken from "../utils/generateToken.js";
 import User from "../models/userModel.js";
+import Order from "../models/orderModel.js";
 
 // @desc    Auth user & get token
 // @route   POST /api/users/login
@@ -10,21 +11,32 @@ const authUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ alpID });
 
-  if (user && (await user.matchPassword(alpID))) {
-    res.json({
-      _id: user._id,
-      alpID: user.alpID,
-      sid: user.sid,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id),
-      rand: user.rand,
-      servicesPermutation: user.servicesPermutation,
-      itemOrder: user.itemOrder
-    });
-  } else {
+  if (!user) {
     res.status(401);
     throw new Error("Invalid ALP number");
   }
+
+  if (!(await user.matchPassword(alpID))) {
+    res.status(401);
+    throw new Error("Invalid ALP number");
+  }
+  // Check for existing order with the user's SID
+  // const existingOrder = await Order.findOne({ sid: user.sid });
+  // if (existingOrder) {
+  //   res.status(401);
+  //   throw new Error("Login failed: existing order found for user.");
+  // }
+
+  res.json({
+    _id: user._id,
+    alpID: user.alpID,
+    sid: user.sid,
+    isAdmin: user.isAdmin,
+    token: generateToken(user._id),
+    rand: user.rand,
+    servicesPermutation: user.servicesPermutation,
+    itemOrder: user.itemOrder
+  });
 });
 
 // @desc    Register a new user
@@ -71,7 +83,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
-    console.log('1:', user.servicesPermutation)
     res.json({
       _id: user._id,
       alpID: user.alpID,

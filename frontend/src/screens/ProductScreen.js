@@ -121,8 +121,6 @@ const ProductScreen = ({ history, match }) => {
     </Tooltip>
   );
 
-  console.log(product.reviews)
-
   return (
     <>
       <Header />

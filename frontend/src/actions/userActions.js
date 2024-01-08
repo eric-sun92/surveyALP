@@ -55,6 +55,7 @@ export const login = (alpID) => async (dispatch) => {
           ? error.response.data.message
           : error.message,
     });
+    throw error; // Ensure the error is thrown
   }
 };
 
@@ -90,11 +91,6 @@ export const register = (alpID, sid) => async (dispatch) => {
 
     dispatch({
       type: USER_REGISTER_SUCCESS,
-      payload: data,
-    });
-
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
       payload: data,
     });
 
