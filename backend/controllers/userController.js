@@ -1,7 +1,6 @@
 import asyncHandler from "express-async-handler";
 import generateToken from "../utils/generateToken.js";
 import User from "../models/userModel.js";
-import Order from "../models/orderModel.js";
 
 // @desc    Auth user & get token
 // @route   POST /api/users/login
@@ -36,7 +35,8 @@ const authUser = asyncHandler(async (req, res) => {
     rand: user.rand,
     servicesPermutation: user.servicesPermutation,
     itemOrder: user.itemOrder,
-    isControl: user.isControl
+    isControl: user.isControl,
+    checkoutItems: user.checkoutItems
   });
 });
 
@@ -70,7 +70,8 @@ const registerUser = asyncHandler(async (req, res) => {
       rand: user.rand,
       servicesPermutation: user.servicesPermutation,
       itemOrder: user.itemOrder,
-      isControl: user.isControl
+      isControl: user.isControl,
+      checkoutItems: user.checkoutItems
     });
   } else {
     res.status(400);
@@ -93,7 +94,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
       rand: user.rand,
       servicesPermutation: user.servicesPermutation,
       itemOrder: user.itemOrder,
-      isControl: user.isControl
+      isControl: user.isControl,
+      checkoutItems: user.checkoutItems
     });
   } else {
     res.status(404);

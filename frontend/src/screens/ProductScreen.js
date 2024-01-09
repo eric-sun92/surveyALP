@@ -184,7 +184,7 @@ const ProductScreen = ({ history, match }) => {
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <Rating
-                      value={product.rating}
+                      value={0}
                       text={`Seller rating pending`}
                       hoverText="Hover text here"  // Add your custom hover text here
                     />
@@ -268,19 +268,20 @@ const ProductScreen = ({ history, match }) => {
                 <h2>Reviews</h2>
                 {product.reviews.length === 0 && <Message>No Reviews</Message>}
                 <ListGroup variant="flush">
-                  {product.reviews.map((review) => (
+                  {/* {product.reviews.map((review) => (
                     <ListGroup.Item key={review._id}>
                       <strong>{review.name}</strong>
                       <Rating value={review.rating} />
                       <p>{review.createdAt.substring(0, 10)}</p>
                       <p>{review.comment}</p>
                     </ListGroup.Item>
-                  ))}
+                  ))} */}
                   <ListGroup.Item>
                     <h2>Write a Customer Review</h2>
                     {successProductReview && (
                       <Message variant="success">
-                        Review submitted successfully
+                        Review submitted successfully.
+                        {/* add some language */}
                       </Message>
                     )}
                     {loadingProductReview && <Loader />}

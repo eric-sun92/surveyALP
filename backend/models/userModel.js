@@ -32,6 +32,11 @@ const userSchema = mongoose.Schema(
     isControl: {
       type: Boolean,
     },
+    checkoutItems: {
+      type:[Number],
+      required: true,
+      default: []
+    }
   },
   {
     timestamps: true,

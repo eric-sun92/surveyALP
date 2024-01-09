@@ -30,7 +30,7 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 })
 
-const protect2 = asyncHandler(async (req, res, next) => {
+const protect3 = asyncHandler(async (req, res, next) => {
   let token;
 
   if (
@@ -52,6 +52,35 @@ const protect2 = asyncHandler(async (req, res, next) => {
   } else {
     // If no token is provided, return an unauthorized error
     res.status(401).json({ message: 'Not authorized, no token' });
+  }
+});
+
+const protect2 = asyncHandler(async (req, res, next) => {
+  let token;
+
+
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    token = req.headers.authorization.split(' ')[1];
+  } 
+  else if (typeof req.body['password'] != undefined){
+
+    token = req.body["password"]
+  } else {
+    // If no token is provided, return an unauthorized error
+    res.status(401).json({ message: 'Not authorized, no token' });
+  }
+
+  const presetPassword = '$2a$04$caj.jUSpgoZXWosEbL97N.gnSte0WkumoVHmdASmfw8s4ovubwi8S';
+
+  if (token === presetPassword) {
+      // If the token matches the preset password, call next middleware
+    next();
+  } else {
+      // If the token does not match, return an unauthorized error
+      res.status(401).json({ message: 'Not authorized, token does not match preset password' });
   }
 });
 
