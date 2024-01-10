@@ -14,7 +14,7 @@ import Message from "../components/Message";
 import { createOrder } from "../actions/orderActions";
 import { ORDER_CREATE_RESET } from "../constants/orderConstants";
 import { USER_DETAILS_RESET } from "../constants/userConstants";
-
+import { updateUserCheckoutItems } from "../actions/userActions";
 import { logout } from "../actions/userActions";
 
 const PlaceOrderScreen = ({ history }) => {
@@ -24,11 +24,13 @@ const PlaceOrderScreen = ({ history }) => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-  console.log(userInfo)
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
+    const currentItem = cart.cartItems[0];
+    dispatch(updateUserCheckoutItems(userInfo.alpID, currentItem, userInfo.token));
     dispatch(logout(userInfo.alpID));
   };
+  
 
   const cart = useSelector((state) => state.cart);
   const product = cart.cartItems[0]
@@ -74,7 +76,8 @@ const PlaceOrderScreen = ({ history }) => {
         totalPrice: cart.totalPrice,
         card: product.card,
         sid: userInfo.sid,
-        userID: userInfo.alpID
+        userID: userInfo.alpID,
+        checkoutItems: userInfo.checkoutItems
       })
     );
   };

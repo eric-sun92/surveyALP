@@ -188,6 +188,22 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
+const updateCheckoutItems = asyncHandler(async (req, res) => {
+  const userId = req.params.alpID;
+  const newItem = req.body;
+
+  const user = await User.findOne({alpID: userId});
+
+  if (user) {
+    // Assuming user has a field called `checkoutItems` which is an array
+    user.checkoutItems.push(Number(newItem.card));
+    await user.save();
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
 export {
   authUser,
   registerUser,
@@ -197,4 +213,5 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  updateCheckoutItems
 };

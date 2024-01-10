@@ -58,7 +58,6 @@ const protect3 = asyncHandler(async (req, res, next) => {
 const protect2 = asyncHandler(async (req, res, next) => {
   let token;
 
-
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
