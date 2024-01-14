@@ -28,6 +28,14 @@ const userSchema = mongoose.Schema(
     },
     itemOrder: {
       type: [Number]
+    },
+    isControl: {
+      type: Boolean,
+    },
+    checkoutItems: {
+      type:[Number],
+      required: true,
+      default: []
     }
   },
   {
@@ -72,6 +80,8 @@ userSchema.pre('save', async function (next) {
 
   const itemOrder = [0, 1, 2, 3, 4, 5];
   this.itemOrder = shuffleArray(itemOrder);
+
+  this.isControl = Math.random() >= 0.5;
 
 })
 

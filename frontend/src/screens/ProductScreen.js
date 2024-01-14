@@ -80,12 +80,11 @@ const ProductScreen = ({ history, match }) => {
   }, []);
 
   const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}`);
+      history.push(`/cart/${match.params.id}`);
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(match.params.id, rating, comment)
     dispatch(
       createProductReview(match.params.id, {
         rating,
@@ -95,7 +94,7 @@ const ProductScreen = ({ history, match }) => {
   };
 
   const toggleModal = () => {
-    setModal(!modal);
+      setModal(!modal);
   };
 
   const redirectToMatchingProduct = () => {
@@ -121,8 +120,6 @@ const ProductScreen = ({ history, match }) => {
     </Tooltip>
   );
 
-  console.log(product.reviews)
-
   return (
     <>
       <Header />
@@ -147,7 +144,7 @@ const ProductScreen = ({ history, match }) => {
             </p>
             <button onClick={toggleModal} class="close"></button>
             <Button onClick={redirectToMatchingProduct}>
-              See Product
+              See Alternative Offer
             </Button>
             <Button
               style={{ marginTop: "1rem", border: "none" }}
@@ -187,7 +184,7 @@ const ProductScreen = ({ history, match }) => {
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <Rating
-                      value={product.rating}
+                      value={0}
                       text={`Seller rating pending`}
                       hoverText="Hover text here"  // Add your custom hover text here
                     />
@@ -245,7 +242,7 @@ const ProductScreen = ({ history, match }) => {
                       type="button"
                       disabled={product.countInStock === 0 || cartItem}
                       onClick={
-                        product.dripPrice ? toggleModal : addToCartHandler
+                        product.dripPrice && !userInfo.isControl ? toggleModal : addToCartHandler
                       }
                     >
                       {product.countInStock === 0 || cartItem ? (
@@ -271,19 +268,20 @@ const ProductScreen = ({ history, match }) => {
                 <h2>Reviews</h2>
                 {product.reviews.length === 0 && <Message>No Reviews</Message>}
                 <ListGroup variant="flush">
-                  {product.reviews.map((review) => (
+                  {/* {product.reviews.map((review) => (
                     <ListGroup.Item key={review._id}>
                       <strong>{review.name}</strong>
                       <Rating value={review.rating} />
                       <p>{review.createdAt.substring(0, 10)}</p>
                       <p>{review.comment}</p>
                     </ListGroup.Item>
-                  ))}
+                  ))} */}
                   <ListGroup.Item>
                     <h2>Write a Customer Review</h2>
                     {successProductReview && (
                       <Message variant="success">
-                        Review submitted successfully
+                        Review submitted successfully.
+                        {/* add some language */}
                       </Message>
                     )}
                     {loadingProductReview && <Loader />}

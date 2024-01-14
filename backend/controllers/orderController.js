@@ -11,7 +11,8 @@ const addOrderItems = asyncHandler(async (req, res) => {
     totalPrice,
     card,
     sid,
-    userID
+    userID,
+    checkoutItems
   } = req.body
 
   if (orderItems && orderItems.length === 0) {
@@ -26,7 +27,8 @@ const addOrderItems = asyncHandler(async (req, res) => {
       totalPrice,
       card,
       sid,
-      userID
+      userID,
+      checkoutItems
     })
 
     const createdOrder = await order.save()
@@ -52,18 +54,57 @@ const getOrderById = asyncHandler(async (req, res) => {
   }
 })
 
+// THIS IS RAND API
+
 const getOrderByUserId = asyncHandler(async (req, res) => {
-  const order = await Order.findOne({ userID: req.params.userID }).populate(
-    'user',
-  );
+  const order = await Order.findOne({ userID: req.params.userID }).populate('user');
 
   if (order) {
-    res.json(order)
+    // Destructure the required fields
+    const { card, user: { rand, isControl }, checkoutItems } = order;
+
+    // Calculate new rand value
+    const dripPrice = 0.05 * rand + 6.85 + 1.70;
+
+    // Construct a new object with the required fields
+    const orderDetails = {
+      purchasedItem: card,
+      dripPrice: dripPrice,
+      isControl,
+      checkoutItems
+    };
+
+    res.json(orderDetails);
   } else {
-    res.status(404)
-    throw new Error('Order not found')
+    res.status(404);
+    throw new Error('Order not found');
   }
-})
+});
+
+const postOrderByUserId = asyncHandler(async (req, res) => {
+  const order = await Order.findOne({ userID: req.params.userID }).populate('user');
+
+  if (order) {
+    // Destructure the required fields
+    const { card, user: { rand, isControl } } = order;
+
+    // Calculate new rand value
+    const dripPrice = 0.05 * rand + 6.85;
+
+    // Construct a new object with the required fields
+    const orderDetails = {
+      purchasedItem: card,
+      dripPrice: dripPrice,
+      isControl
+    };
+
+    res.json(orderDetails);
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+});
+
 
 // @desc    Get order by SID
 // @route   GET /api/orders/sid/:sid
@@ -151,5 +192,6 @@ export {
   getMyOrders,
   getOrders,
   getOrderBySid,
-  getOrderByUserId
+  getOrderByUserId,
+  postOrderByUserId
 }

@@ -6,12 +6,12 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
   return (
     <Nav className="justify-content-center my-4">
       <Nav.Item>
-        {step1 ? (
-          <div>
-            <Nav.Link>Sign In</Nav.Link>
-          </div>
+        {step2 ? (
+          <LinkContainer to="/brand">
+            <Nav.Link>Continue Shopping</Nav.Link>
+        </LinkContainer>
         ) : (
-          <Nav.Link disabled>Sign In</Nav.Link>
+          <Nav.Link disabled>Continue Shopping</Nav.Link>
         )}
       </Nav.Item>
 

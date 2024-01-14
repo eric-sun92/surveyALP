@@ -10,21 +10,34 @@ const authUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ alpID });
 
-  if (user && (await user.matchPassword(alpID))) {
-    res.json({
-      _id: user._id,
-      alpID: user.alpID,
-      sid: user.sid,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id),
-      rand: user.rand,
-      servicesPermutation: user.servicesPermutation,
-      itemOrder: user.itemOrder
-    });
-  } else {
+  if (!user) {
     res.status(401);
     throw new Error("Invalid ALP number");
   }
+
+  if (!(await user.matchPassword(alpID))) {
+    res.status(401);
+    throw new Error("Invalid ALP number");
+  }
+  // Check for existing order with the user's SID
+  // const existingOrder = await Order.findOne({ sid: user.sid });
+  // if (existingOrder) {
+  //   res.status(401);
+  //   throw new Error("Login failed: existing order found for user.");
+  // }
+
+  res.json({
+    _id: user._id,
+    alpID: user.alpID,
+    sid: user.sid,
+    isAdmin: user.isAdmin,
+    token: generateToken(user._id),
+    rand: user.rand,
+    servicesPermutation: user.servicesPermutation,
+    itemOrder: user.itemOrder,
+    isControl: user.isControl,
+    checkoutItems: user.checkoutItems
+  });
 });
 
 // @desc    Register a new user
@@ -56,7 +69,9 @@ const registerUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
       rand: user.rand,
       servicesPermutation: user.servicesPermutation,
-      itemOrder: user.itemOrder
+      itemOrder: user.itemOrder,
+      isControl: user.isControl,
+      checkoutItems: user.checkoutItems
     });
   } else {
     res.status(400);
@@ -71,7 +86,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
-    console.log('1:', user.servicesPermutation)
     res.json({
       _id: user._id,
       alpID: user.alpID,
@@ -79,7 +93,9 @@ const getUserProfile = asyncHandler(async (req, res) => {
       isAdmin: user.isAdmin,
       rand: user.rand,
       servicesPermutation: user.servicesPermutation,
-      itemOrder: user.itemOrder
+      itemOrder: user.itemOrder,
+      isControl: user.isControl,
+      checkoutItems: user.checkoutItems
     });
   } else {
     res.status(404);
@@ -172,6 +188,22 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
+const updateCheckoutItems = asyncHandler(async (req, res) => {
+  const userId = req.params.alpID;
+  const newItem = req.body;
+
+  const user = await User.findOne({alpID: userId});
+
+  if (user) {
+    // Assuming user has a field called `checkoutItems` which is an array
+    user.checkoutItems.push(Number(newItem.card));
+    await user.save();
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
 export {
   authUser,
   registerUser,
@@ -181,4 +213,5 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  updateCheckoutItems
 };

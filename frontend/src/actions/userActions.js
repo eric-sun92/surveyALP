@@ -24,6 +24,7 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_REQUEST,
+  USER_UPDATE_CHECKOUT_ITEMS
 } from "../constants/userConstants";
 import { ORDER_LIST_MY_RESET } from "../constants/orderConstants";
 
@@ -55,6 +56,7 @@ export const login = (alpID) => async (dispatch) => {
           ? error.response.data.message
           : error.message,
     });
+    throw error; // Ensure the error is thrown
   }
 };
 
@@ -90,11 +92,6 @@ export const register = (alpID, sid) => async (dispatch) => {
 
     dispatch({
       type: USER_REGISTER_SUCCESS,
-      payload: data,
-    });
-
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
       payload: data,
     });
 
@@ -297,5 +294,34 @@ export const updateUser = (user) => async (dispatch, getState) => {
       type: USER_UPDATE_FAIL,
       payload: message,
     });
+  }
+};
+
+export const updateUserCheckoutItems = (userId, newItem) => async (dispatch, getState) => {
+  try {
+    // Fetch the token from the current state
+    const { userLogin: { userInfo } } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    // Update the user's checkout items in the backend
+    await axios.put(`/api/users/${userId}`, newItem, config);
+    // Dispatch the action
+    dispatch({
+      type: USER_UPDATE_CHECKOUT_ITEMS,
+      payload: newItem,
+    });
+
+    // Optional: Update the user info in local storage or state
+    // localStorage.setItem('userInfo', JSON.stringify(getState().userLogin.userInfo));
+  } catch (error) {
+    // Handle the error
+    console.error('Error updating checkout items:', error);
+    // Optionally dispatch an error action
   }
 };

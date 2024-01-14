@@ -8,14 +8,13 @@ import {
   Card,
   Container,
   Navbar,
-  Nav,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import { createOrder } from "../actions/orderActions";
 import { ORDER_CREATE_RESET } from "../constants/orderConstants";
 import { USER_DETAILS_RESET } from "../constants/userConstants";
-
+import { updateUserCheckoutItems } from "../actions/userActions";
 import { logout } from "../actions/userActions";
 
 const PlaceOrderScreen = ({ history }) => {
@@ -26,9 +25,12 @@ const PlaceOrderScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
+    const currentItem = cart.cartItems[0];
+    dispatch(updateUserCheckoutItems(userInfo.alpID, currentItem, userInfo.token));
     dispatch(logout(userInfo.alpID));
   };
+  
 
   const cart = useSelector((state) => state.cart);
   const product = cart.cartItems[0]
@@ -74,7 +76,8 @@ const PlaceOrderScreen = ({ history }) => {
         totalPrice: cart.totalPrice,
         card: product.card,
         sid: userInfo.sid,
-        userID: userInfo.alpID
+        userID: userInfo.alpID,
+        checkoutItems: userInfo.checkoutItems
       })
     );
   };
@@ -87,7 +90,7 @@ const PlaceOrderScreen = ({ history }) => {
           <Navbar.Brand>Gift Card Marketplace</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ml-auto">
+            {/* <Nav className="ml-auto">
               <div
                 style={{
                   color: "white",
@@ -100,7 +103,7 @@ const PlaceOrderScreen = ({ history }) => {
                Logout <i className="fas fa-user ml-0.5"></i>
               </div>
               
-            </Nav>
+            </Nav> */}
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -124,7 +127,7 @@ const PlaceOrderScreen = ({ history }) => {
               }} onClick={logoutHandler}>
                 Empty Cart and Begin Again
               </button>              
-              <p>Note you will be logged out and must restart your session.</p>
+              <p>Note you be asked to re-enter your account ID.</p>
               </ListGroup.Item>
               <ListGroup.Item>
                 <h2>User Info</h2>

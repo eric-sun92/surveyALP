@@ -25,6 +25,7 @@ import {
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_PROFILE_RESET,
+  USER_UPDATE_CHECKOUT_ITEMS
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -131,3 +132,16 @@ export const userUpdateReducer = (state = { user: {} }, action) => {
       return state
   }
 }
+
+export const userUpdateItemsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_UPDATE_CHECKOUT_ITEMS:
+      return {
+        ...state,
+        checkoutItems: [...state.checkoutItems, action.payload.newItem],
+      };
+    // other cases
+    default:
+      return state;
+  }
+};

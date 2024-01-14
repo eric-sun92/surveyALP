@@ -20,18 +20,26 @@ const RegisterScreen = ({ match, location, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error } = userLogin;
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-
+  
     const check = document.getElementById('myInput');
     if (check.value !== "6F89PY78G") {
-      setMessage("Invalid Account ID. ID's are case sensitive");
-    } else {
-      dispatch(register(alpID, sid));
-      dispatch(login(alpID));
+      setMessage("Invalid Account ID. IDs are case sensitive");
+      return;
+    }
+    await dispatch(register(alpID, sid));
+
+    try {
+      await dispatch(login(alpID));
+      // If login is successful, navigate to /brand
       history.push("/brand");
+    } catch (error) {
+      // Handle login failure - error should contain the reason for failure
+      setMessage(error.message || "Login failed, please try again.");
     }
   };
+  
 
   window.onload = () => {
     const myInput = document.getElementById("myInput");

@@ -56,6 +56,9 @@ const orderSchema = mongoose.Schema(
     card: {
       type: Number,
       required: true
+    },
+    checkoutItems: {
+      type: [Number]
     }
 
   },
