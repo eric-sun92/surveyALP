@@ -15,8 +15,6 @@ const addOrderItems = asyncHandler(async (req, res) => {
     checkoutItems
   } = req.body
 
-  console.log(checkoutItems)
-
   if (orderItems && orderItems.length === 0) {
     res.status(400)
     throw new Error('No order items')
@@ -66,7 +64,7 @@ const getOrderByUserId = asyncHandler(async (req, res) => {
     const { card, user: { rand, isControl }, checkoutItems } = order;
 
     // Calculate new rand value
-    const dripPrice = 0.05 * rand + 6.85;
+    const dripPrice = 0.05 * rand + 6.85 + 1.70;
 
     // Construct a new object with the required fields
     const orderDetails = {

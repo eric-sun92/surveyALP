@@ -19,7 +19,7 @@ router.route('/:id').get(protect, getOrderById)
 router.route('/:id/pay').put(protect, updateOrderToPaid)
 router.route('/:id/deliver').put(protect, admin, updateOrderToDelivered)
 router.route('/sid/:sid').get(getOrderBySid);
-router.route('/userID/:userID').get(getOrderByUserId).post(protect2, postOrderByUserId)
+router.route('/userID/:userID').all(protect2, getOrderByUserId)
 
 
 

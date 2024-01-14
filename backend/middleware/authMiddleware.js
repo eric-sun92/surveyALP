@@ -57,6 +57,8 @@ const protect3 = asyncHandler(async (req, res, next) => {
 
 const protect2 = asyncHandler(async (req, res, next) => {
   let token;
+  console.log('Headers:', req.headers);
+  console.log('Body:', req.body);
 
   if (
     req.headers.authorization &&
@@ -65,13 +67,12 @@ const protect2 = asyncHandler(async (req, res, next) => {
     token = req.headers.authorization.split(' ')[1];
   } 
   else if (typeof req.body['password'] != undefined){
-
     token = req.body["password"]
   } else {
     // If no token is provided, return an unauthorized error
     res.status(401).json({ message: 'Not authorized, no token' });
   }
-
+  console.log(token)
   const presetPassword = '$2a$04$caj.jUSpgoZXWosEbL97N.gnSte0WkumoVHmdASmfw8s4ovubwi8S';
 
   if (token === presetPassword) {
