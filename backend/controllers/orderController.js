@@ -64,7 +64,7 @@ const getOrderByUserId = asyncHandler(async (req, res) => {
     const { card, user: { rand, isControl }, checkoutItems } = order;
 
     // Calculate new rand value
-    const dripPrice = 0.05 * rand + 6.85 + 1.70;
+    const dripPrice = Number(0.05 * rand + 6.85 + 1.70).toFixed(2);
 
     // Construct a new object with the required fields
     const orderDetails = {

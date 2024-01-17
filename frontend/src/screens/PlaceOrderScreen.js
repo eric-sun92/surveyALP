@@ -66,6 +66,9 @@ const PlaceOrderScreen = ({ history }) => {
     // eslint-disable-next-line
   }, [history, success]);
 
+  console.log('product', product)
+  console.log('cartItem', cart.cartItems[0])
+
   const placeOrderHandler = () => {
     dispatch(
       createOrder({
@@ -127,12 +130,12 @@ const PlaceOrderScreen = ({ history }) => {
               }} onClick={logoutHandler}>
                 Empty Cart and Begin Again
               </button>              
-              <p>Note you be asked to re-enter your account ID.</p>
+              <p>Note: You will be asked to re-enter your account ID.</p>
               </ListGroup.Item>
               <ListGroup.Item>
                 <h2>User Info</h2>
                 <p>
-                  <strong>Account Id: </strong>
+                  <strong>Account ID: </strong>
                   6F89PY78G
                 </p>
               </ListGroup.Item>

@@ -1,32 +1,21 @@
-# Yale Law School ALP Survey
+Yale Law School ALP Survey
+by Eric Sun
 
-> eCommerce platform built with the MERN stack & Redux.
+This is an mock eCommerce platform built with the MERN stack & Redux intended for the study of effects of drip pricing. 
+"Drip pricing is a pricing technique in which firms advertise only part of a product's price and reveal other charges later as the customer goes through the buying process." 
+In order to study these effects, I have partnered with the Yale Law School Private Clinic of Consumer Rights led by Daniel Markovits and Andrew Miller to create this study. I led the technical side of this study by developing a mock eCommerce site where study participants are able to choose between different gift card choices for purchase, which will be given to them at the end of the study. Drip priced gift cards initally, appear cheaper than non-drip priced items; however, will be increased in price during checkout with an additional service fee causing it to become more expensive than the non-drip priced option. Users must then restart their checkout process and go through a few states of "friction" to choose the non-drip priced option. We wanted to study the effect of the friction between start and finish, drip price amount, and whether or not the user was notified of a cheaper option and how much each of these aspects would cause the user to undergo the restart process and choose the cheaper option. 
+For the study, each user will be given a $15 and must purchase a gift card of their choice from the survey eCommerce platform that I have created. The pruchased giftcard + extra money leftover will be given to each participant. The base price of non-drip priced giftcards are $8.5. However, each user will see a cheaper option ranging from $6.85-8.45. We have uniformly randomly given each participant a price in 5 cent increments within this range. This price, however, will be drip priced and will see a $1.7 "service fee" at checkout to which will make the overall price higher than the original. The user will then have to restart and empty their cart to pruchase the non-drip priced option if they choose to do so. This process consists of typing in their Account Number as well as re-adding their item to the cart and completing a verification reapcha. 
 
 ## Features
 
 - Full featured shopping cart
 - Product reviews and ratings
-- Top products carousel
-- Product pagination
 - Product search feature
-- User profile with orders
 - Admin product management
 - Admin user management
 - Admin Order details page
-- Mark orders as delivered option
-- Checkout process (shipping, payment method, etc)
-- PayPal / credit card integration
+- Checkout process (verification, payment method, etc)
 - Database seeder (products & users)
-
-## Usage
-
-### ES Modules in Node
-
-We use ECMAScript Modules in the backend in this project. Be sure to have at least Node v14.6+ or you will need to add the "--experimental-modules" flag.
-
-Also, when importing a file (not a package), be sure to add .js at the end or you will get a "module not found" error
-
-You can also install and setup Babel if you would like
 
 ### Env Variables
 
@@ -35,9 +24,10 @@ Create a .env file in then root and add the following
 ```
 NODE_ENV = development
 PORT = 5000
-MONGO_URI = your mongodb uri
-JWT_SECRET = 'test'
-PAYPAL_CLIENT_ID = your paypal client id
+MONGO_URI = mongoURI (must use own)
+JWT_SECRET = test
+REACT_APP_SITE_KEY=(must use own)
+REACT_APP_SECRET_KEY=(must use own)
 ```
 
 ### Install Dependencies (frontend & backend)
@@ -66,29 +56,5 @@ cd frontend
 npm run build
 ```
 
-There is a Heroku postbuild script, so if you push to Heroku, no need to build manually for deployment to Heroku
 
-### Seed Database
 
-You can use the following commands to seed the database with some sample users and products as well as destroy all data
-
-```
-# Import data
-npm run data:import
-
-# Destroy data
-npm run data:destroy
-```
-
-```
-Sample User Logins
-
-admin@example.com (Admin)
-123456
-
-john@example.com (Customer)
-123456
-
-jane@example.com (Customer)
-123456
-```
